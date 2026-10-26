@@ -1,0 +1,10 @@
+# Ignore all hidden files
+.*
+
+# Protect Downloads directory: ignore everything by default
+*
+
+# Whitelist project files only
+!dinosaur_odyssey.html
+!.gitignore
+!README.md

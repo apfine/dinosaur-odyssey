@@ -1,0 +1,3003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DINOSAUR ODYSSEY — A Ten-Minute Illustrated History of Life</title>
+<style>
+:root {
+  --bg: #060a14;
+  --panel: #0d1527;
+  --card: #131f38;
+  --edge: #223456;
+  --edge-glow: rgba(56, 189, 248, 0.25);
+  --accent: #2dd4bf;
+  --accent-gold: #f59e0b;
+  --accent-rose: #f43f5e;
+  --txt: #f8fafc;
+  --muted: #94a3b8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: radial-gradient(circle at 50% 0%, #172554 0%, #060a14 75%);
+  color: var(--txt);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 20px 16px 40px;
+}
+.wrap {
+  max-width: 1540px;
+  margin: 0 auto;
+}
+header.brand-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #f1f5f9;
+}
+.brand-title .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2dd4bf, #0284c7);
+  box-shadow: 0 0 16px rgba(45, 212, 191, 0.6);
+  color: #03111f;
+  font-size: 14px;
+  font-weight: 900;
+}
+.brand-tag {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #38bdf8;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.brand-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.screen-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #02040a;
+  border: 1px solid var(--edge);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.8), 0 0 40px -10px rgba(14, 165, 233, 0.15);
+}
+canvas#movie {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #000;
+}
+.controls {
+  margin-top: 18px;
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.timeline-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+input[type="range"].timeline {
+  flex: 1;
+  height: 8px;
+  -webkit-appearance: none;
+  background: #1e293b;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+input[type="range"].timeline::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2dd4bf;
+  box-shadow: 0 0 12px #2dd4bf;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+.time-display {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #38bdf8;
+  min-width: 130px;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn:hover:not(:disabled) {
+  background: #334155;
+  border-color: #475569;
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #0d9488, #0284c7);
+  border-color: #38bdf8;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #14b8a6, #0369a1);
+  box-shadow: 0 4px 18px rgba(20, 184, 166, 0.5);
+}
+.btn-danger {
+  background: #be123c;
+  border-color: #f43f5e;
+  color: #fff;
+}
+.btn-danger:hover:not(:disabled) {
+  background: #e11d48;
+}
+.control-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #cbd5e1;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  background: #131f38;
+  padding: 6px 12px;
+  border-radius: 7px;
+  border: 1px solid #223456;
+}
+.control-switch input[type="checkbox"] {
+  accent-color: #2dd4bf;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.volume-slider {
+  width: 75px;
+  height: 5px;
+  accent-color: #38bdf8;
+  cursor: pointer;
+}
+.chapter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #1e293b;
+}
+.chapter-btn {
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  background: #131f38;
+  border: 1px solid #223456;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.chapter-btn:hover {
+  background: #1e2e4f;
+  color: #f1f5f9;
+  border-color: #38bdf8;
+}
+.chapter-btn.active {
+  background: linear-gradient(135deg, #0d9488, #0369a1);
+  border-color: #38bdf8;
+  color: #ffffff;
+  font-weight: 700;
+}
+.progress-bar-wrap {
+  height: 6px;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+  transition: width 0.1s linear;
+}
+.status-msg {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #38bdf8;
+  min-height: 18px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: #0d1527;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.info-grid strong {
+  color: #f1f5f9;
+}
+@media (max-width: 900px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .btn-row { gap: 8px; }
+  .btn { padding: 7px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand-bar">
+    <div>
+      <div class="brand-title">
+        <span class="badge">◈</span>
+        <span>DINOSAUR ODYSSEY</span>
+      </div>
+      <div class="brand-tag">A Ten-Minute Illustrated History of Mesozoic Life</div>
+    </div>
+    <div class="brand-meta">
+      <span>1920 × 1080 · 60 FPS CANVAS</span>
+      <span>11 CHAPTERS · 85 SHOTS</span>
+      <span>OFFLINE STANDALONE</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="screen-container">
+      <canvas id="movie" width="1920" height="1080" aria-label="Dinosaur Era Documentary Animation"></canvas>
+    </div>
+
+    <div class="controls">
+      <div class="timeline-row">
+        <input id="seek" class="timeline" type="range" min="0" max="600" step="0.02" value="0" aria-label="Seek time">
+        <div class="time-display" id="clock">00:00 / 10:00</div>
+      </div>
+
+      <div class="btn-row">
+        <button id="play" class="btn btn-primary">▶ Play</button>
+        <button id="restart" class="btn">↺ Restart</button>
+        <span style="flex: 1;"></span>
+        <label class="control-switch">
+          <input id="subs" type="checkbox" checked> Subtitles
+        </label>
+        <label class="control-switch">
+          <input id="audioToggle" type="checkbox" checked> Ambient Synth
+        </label>
+        <label class="control-switch">
+          <input id="voiceToggle" type="checkbox"> Browser Voice
+        </label>
+        <label class="control-switch" title="Master Volume">
+          Vol <input id="volume" class="volume-slider" type="range" min="0" max="1" step="0.05" value="0.75">
+        </label>
+        <button id="export" class="btn btn-primary">⬇ Render Video (WebM)</button>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div id="progress" class="progress-fill"></div>
+      </div>
+
+      <div class="chapter-nav" id="chapters"></div>
+      <div class="status-msg" id="status">Ready. Pure deterministic vector animation at 1080p.</div>
+    </div>
+
+    <div class="info-grid">
+      <div>
+        <strong>Curated Visual Art Direction:</strong> Original layered vector illustration inspired by the visual richness and cinematic storytelling of Kurzgesagt. Features multi-stage atmospheric perspective, volumetric crepuscular rays, inverse-kinematic walk cycles, and scientifically accurate reconstructions of Brachiosaurus, Diplodocus, T-Rex, Allosaurus, Triceratops, Hadrosaurs, Eoraptor, Pterosaurs, Plesiosaurs, Mosasaurs, and early Avian dinosaurs.
+      </div>
+      <div>
+        <strong>Export Pipeline:</strong> Real-time high-bitrate WebM encoding (VP9/VP8, 12-16 Mbps) with burned-in subtitles and integrated procedural ambient audio. Fully offline and self-contained.
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+'use strict';
+
+// -------------------------------------------------------------
+// CONSTANTS & CANVAS INITIALIZATION
+// -------------------------------------------------------------
+const W = 1920, H = 1080, DURATION = 600, TAU = Math.PI * 2;
+const canvas = document.getElementById('movie');
+const ctx = canvas.getContext('2d', { alpha: false });
+const $ = id => document.getElementById(id);
+
+// -------------------------------------------------------------
+// CHAPTER DEFINITIONS & SCIENTIFIC NARRATION
+// -------------------------------------------------------------
+const CHAPTERS = [
+  {
+    start: 0, end: 45,
+    name: "The World of Dinosaurs",
+    title: "WHEN GIANTS WALKED THE EARTH",
+    period: "MESOZOIC ERA · 252 TO 66 MILLION YEARS AGO",
+    palette: ["#07152b", "#163854", "#2a6f79", "#78c6a3", "#fef3c7"],
+    shots: [
+      ["FOREST AWAKENING", "forest", "sauropod"],
+      ["THE FIRST LIGHT", "forest", "brachio"],
+      ["FOOTSTEPS IN THE MIST", "forest", "sauropod"],
+      ["AN ANCIENT PLANET", "globe", ""],
+      ["TIME BEYOND MEMORY", "timeline", ""],
+      ["THE MESOZOIC HORIZON", "forest", "theropod"]
+    ],
+    text: "Imagine a world where the ground trembles beneath living mountains. Warm air moves through ancient forests, and giant animals feed high among the canopy. For more than one hundred and sixty million years, dinosaurs shaped ecosystems across the planet. But their history was never one unchanging world. Continents drifted. Oceans opened. Forests transformed. Species evolved and vanished, long before the famous final catastrophe. Our journey starts more than two hundred million years in the past. We will follow small beginnings, spectacular giants, hunters, feathered creatures, and finally a catastrophe that reshaped life. And along the way, we will discover why dinosaurs never entirely disappeared."
+  },
+  {
+    start: 45, end: 95,
+    name: "Earth Before Dinosaurs",
+    title: "A BIOSPHERE REBORN FROM FIRE",
+    period: "LATE PERMIAN TO EARLY TRIASSIC · 252 MA",
+    palette: ["#180c1e", "#4a1525", "#8c2e2e", "#d97736", "#fed7aa"],
+    shots: [
+      ["BEFORE THE GIANTS", "volcano", ""],
+      ["THE GREAT DYING", "volcano", ""],
+      ["ECOSYSTEMS COLLAPSE", "timeline", ""],
+      ["THE LONG RECOVERY", "dry", "small"],
+      ["SURVIVORS EXPAND", "dry", "herd"],
+      ["NEW POSSIBILITIES", "forest", "small"],
+      ["AN UNFAMILIAR EARTH", "globe", ""]
+    ],
+    text: "Before dinosaurs appeared, life had already endured its greatest known mass extinction. Around two hundred and fifty-two million years ago, at the boundary between the Permian and Triassic periods, most marine species disappeared, along with many groups living on land. Huge volcanic eruptions in the Siberian Traps are linked to powerful changes in climate, ocean chemistry, and the carbon cycle. Recovery was uneven and took millions of years. Life did not simply restart with dinosaurs. Other reptiles and surviving archosaur lineages spread through recovering habitats. The continents formed a vast connected landmass, and many interiors were hot and seasonally dry. Evolution now had empty ecological opportunities, but no predetermined winner. Dinosaurs would emerge into a world already crowded with formidable competitors."
+  },
+  {
+    start: 95, end: 145,
+    name: "The First Dinosaurs",
+    title: "SMALL BEGINNINGS AND SWIFT STRIDES",
+    period: "LATE TRIASSIC · 230 MILLION YEARS AGO",
+    palette: ["#0d2238", "#1e4d58", "#b45309", "#d97706", "#fef08a"],
+    shots: [
+      ["LATE TRIASSIC DAWN", "dry", "small"],
+      ["A LIGHTER STEP", "dry", "small"],
+      ["RUNNING ON TWO LEGS", "dry", "small"],
+      ["COMPETITORS EVERYWHERE", "dry", "theropod"],
+      ["ANATOMY IN MOTION", "fossil", "small"],
+      ["MANY BRANCHES", "tree", ""],
+      ["THE RISE BEGINS", "forest", "herd"]
+    ],
+    text: "The first true dinosaurs evolved during the Late Triassic, approximately two hundred and thirty million years ago. Many were agile and relatively small, like Eoraptor. Moving upright on two slender hind limbs positioned directly beneath their hips gave them remarkable agility and endurance. Early dinosaur relatives and rival archosaurs possessed their own formidable adaptations, and dinosaurs did not immediately dominate every ecosystem. Fossil skeletons reveal specialized hip sockets, compact ankles, and erect postures that set them apart. Over generations, populations diversified as natural selection acted on inherited variation. Different branches evolved distinct ways to move, feed, and survive. There was no sudden parade of giants. The dinosaur story began with bold experiments in anatomy and biomechanics."
+  },
+  {
+    start: 145, end: 195,
+    name: "Pangaea & the Changing Planet",
+    title: "A SUPERCONTINENT IN MOTION",
+    period: "TRIASSIC TO JURASSIC TRANSITION · 201 MA",
+    palette: ["#08203e", "#17486d", "#2e7b88", "#5eead4", "#fef3c7"],
+    shots: [
+      ["ONE SUPERCONTINENT", "globe", ""],
+      ["PANGAEA", "map", ""],
+      ["CRACKS IN THE CRUST", "map", ""],
+      ["NEW OCEANS OPEN", "ocean", ""],
+      ["CLIMATES SHIFT", "dry", "herd"],
+      ["LANDSCAPES DIVERGE", "globe", ""],
+      ["EVOLUTION DIVERTS", "tree", ""]
+    ],
+    text: "Earth itself was shifting beneath the dinosaurs' feet. Early in their history, virtually all land was gathered into Pangaea, a colossal supercontinent surrounded by the global Panthalassa ocean. Its vast interior experienced scorching arid seasons, while coastal zones supported humid belts. But tectonic forces driven by deep mantle currents began to tear Pangaea apart. Enormous rift valleys formed, the crust split, and the birth of new oceans altered global currents and wind patterns. As continents separated into Laurasia and Gondwana, rainfall, temperature, and migratory corridors changed forever. Populations once unified became isolated on drifting landmasses. These dynamic geographic shifts unfolded over tens of millions of years, driving evolutionary divergence and biological innovation across the globe."
+  },
+  {
+    start: 195, end: 260,
+    name: "The Jurassic World",
+    title: "THE COLOSSAL AGE OF GIANTS",
+    period: "LATE JURASSIC · 155 MILLION YEARS AGO",
+    palette: ["#06232d", "#134e4a", "#0f766e", "#10b981", "#ecfdf5"],
+    shots: [
+      ["GREEN KINGDOMS", "forest", "sauropod"],
+      ["DIPLODOCUS ON THE PROWL", "forest", "diplodocus"],
+      ["THE TOWERING CANOPY", "forest", "brachio"],
+      ["GIANTS AT THE WATER'S EDGE", "river", "herd"],
+      ["A WORLD OF FERNS & CONIFERS", "forest", "sauropod"],
+      ["HERD MOVEMENT", "dry", "herd"],
+      ["BENEATH THEIR FEET", "forest", "small"],
+      ["THE GIGANTIC SCALE", "forest", "brachio"],
+      ["LIFE ON THE FLOODPLAIN", "river", "diplodocus"]
+    ],
+    text: "By the Jurassic Period, some dinosaur lineages had achieved extraordinary size, producing the largest land animals in Earth's history. Sauropods, the iconic long-necked herbivores, dominated the landscape. Diplodocus possessed an exceptionally long, whip-like tail that could break the sound barrier, while Brachiosaurus stood with towering forelimbs, its neck reaching high into the crowns of conifers and cycads. Pillar-like limbs supported dozens of metric tons, while complex air sacs inside their hollow bones reduced weight without sacrificing structural strength. Long necks allowed them to sweep across enormous feeding areas without wasting energy moving their colossal bodies. These giants coexisted with ancient conifers, tree ferns, and countless smaller creatures. The Jurassic was a thriving, interconnected biosphere of towering plants, fertile soils, and astonishing biological scale."
+  },
+  {
+    start: 260, end: 310,
+    name: "Predators & Survival",
+    title: "THE BALANCE OF HUNT AND DEFENSE",
+    period: "LATE JURASSIC · 150 MILLION YEARS AGO",
+    palette: ["#1e142e", "#431407", "#7f1d1d", "#ea580c", "#fed7aa"],
+    shots: [
+      ["THE HUNTER IN THE SHADOWS", "forest", "allosaurus"],
+      ["ANATOMY OF A PREDATOR", "fossil", "theropod"],
+      ["EYES IN THE FERNS", "forest", "allosaurus"],
+      ["DEFENSE AND ESCAPE", "dry", "herd"],
+      ["THE MESOZOIC FOOD WEB", "tree", ""],
+      ["THE COST OF SURVIVAL", "river", "theropod"],
+      ["EVERY SPECIES ADAPTS", "forest", "herd"]
+    ],
+    text: "Alongside peaceful herbivorous giants roamed formidable apex predators. Allosaurus, the terror of the Jurassic floodplains, possessed serrated teeth, a reinforced skull designed to absorb slashing stress, and powerful three-clawed grasping arms. Fossil tracks, healed injuries, and biomechanical models reveal how these carnivores stalked and attacked prey. Yet herbivores were far from defenseless. Massive body mass, sweeping tails, spiked thagomizers, and herd vigilance provided powerful deterrents. Survival was never just a duel between hunter and prey; it was governed by the broader ecological flow of energy. Solar energy captured by prehistoric plants flowed upward through herbivores to apex carnivores, while decomposers recycled vital nutrients. Every predator was tethered to the health of the entire ecosystem."
+  },
+  {
+    start: 310, end: 365,
+    name: "Cretaceous Transformation",
+    title: "A FLOWERING WORLD IN BLOOM",
+    period: "LATE CRETACEOUS · 75 MILLION YEARS AGO",
+    palette: ["#082f49", "#0e7490", "#059669", "#d97706", "#fef3c7"],
+    shots: [
+      ["FLOWERING PLANTS ARISE", "forest", "herd"],
+      ["NEW CONTINENTAL ARCHIPELAGOS", "globe", ""],
+      ["TRICERATOPS ON PATROL", "forest", "triceratops"],
+      ["DUCK-BILLED HERDS", "river", "hadrosaur"],
+      ["TYRANNOSAURUS REX", "forest", "trex"],
+      ["COLOR AND DIVERSITY", "forest", "triceratops"],
+      ["LATE CRETACEOUS VISTAS", "dry", "trex"],
+      ["ECOSYSTEMS REIMAGINED", "river", "hadrosaur"]
+    ],
+    text: "During the Cretaceous Period, Earth underwent another profound transformation. Angiosperms—the first flowering plants—radiated across the continents, entering into coevolutionary partnerships with insects and transforming terrestrial food webs. Continents fragmented further, creating isolated evolutionary theaters with unique regional faunas. Triceratops evolved an immense solid bone frill and sweeping three-foot brow horns for defense and social display. Duck-billed hadrosaurs possessed dental batteries of hundreds of interlocking teeth capable of grinding tough woody vegetation. And Tyrannosaurus rex emerged as the undisputed apex predator of North America, equipped with stereoscopic vision and a bone-crushing bite force unmatched by any terrestrial animal. Dinosaur diversity reached breathtaking heights across every ecological niche."
+  },
+  {
+    start: 365, end: 425,
+    name: "How Dinosaurs Actually Lived",
+    title: "CLUES CARVED IN STONE",
+    period: "PALEOBIOLOGY & DISCOVERY",
+    palette: ["#0f172a", "#334155", "#64748b", "#94a3b8", "#f1f5f9"],
+    shots: [
+      ["FOSSIL WINDOWS TO THE PAST", "fossil", "theropod"],
+      ["THE SECRET OF FEATHERS", "feather", "small"],
+      ["NESTS, EGGS & PARENTAL CARE", "nest", "small"],
+      ["GROWING UP IN THE MESOZOIC", "forest", "small"],
+      ["TRACKWAYS PRESERVE STRIDES", "fossil", "hadrosaur"],
+      ["SCIENCE AND EMPIRICAL EVIDENCE", "fossil", "triceratops"],
+      ["A LIVING, BREATHING BODY", "feather", "theropod"],
+      ["BEYOND MONOCHROME SCALES", "forest", "small"]
+    ],
+    text: "How do scientists reconstruct the lives of creatures that vanished sixty-six million years ago? Modern paleontology combines fossil bones with cutting-edge geochemistry, biomechanics, and micro-CT imaging. Fossil trackways preserve stride lengths, walking speeds, and herd dynamics in ancient mud. Bone histology reveals growth rings similar to trees, showing how rapidly dinosaurs grew from hatchlings to adults. Exquisitely preserved fossils from Liaoning and around the globe prove that many theropods possessed feathers—from simple filament down to aerodynamic vaned plumage used for insulation, brooding, and courtship display. Nests with fossilized egg clutches demonstrate dedicated brooding behavior. Dinosaurs were not slow, dim-witted cold-blooded lizards; they were active, physiologically sophisticated animals with dynamic social lives."
+  },
+  {
+    start: 425, end: 480,
+    name: "A Planet Full of Life",
+    title: "MORE THAN JUST DINOSAURS",
+    period: "MESOZOIC BIODIVERSITY",
+    palette: ["#032b43", "#05668d", "#028090", "#00a896", "#f0fdfa"],
+    shots: [
+      ["THE SMALLEST NEIGHBORS", "forest", "small"],
+      ["MAMMALS IN THE SHADOWS", "nest", "small"],
+      ["RULERS OF THE SKIES", "sky", "pterosaur"],
+      ["OVER ANCIENT SEAS", "ocean", "pterosaur"],
+      ["BELOW THE SURFACE", "underwater", "plesiosaur"],
+      ["APEX MARINE HUNTERS", "underwater", "mosasaur"],
+      ["INTERCONNECTED ECOSYSTEMS", "river", "herd"],
+      ["A PLANET OF STORIES", "sky", "pterosaur"]
+    ],
+    text: "Dinosaurs did not rule their planet in isolation. Prehistoric ecosystems were teeming with a vast array of diverse organisms. Tiny early mammals scurried through the undergrowth, developing nocturnal habits, keen hearing, and warm fur coats. Overhead, pterosaurs soared on membranous wings supported by hyper-elongated fourth fingers; though close archosaur cousins, pterosaurs were not dinosaurs. In the warm shallow seas, majestic marine reptiles held dominion: long-necked plesiosaurs flew gracefully through the water column using four hydrofoil flippers, while later Cretaceous oceans were terrorized by mosasaurs—colossal sea-going squamate reptiles distantly related to monitor lizards. Prehistoric Earth was a multi-dimensional world of land, air, and ocean, each domain supporting its own spectacular evolutionary marvels."
+  },
+  {
+    start: 480, end: 540,
+    name: "Impact & Mass Extinction",
+    title: "THE DAY THE SKY FELL",
+    period: "K-PG BOUNDARY · 66.0 MILLION YEARS AGO",
+    palette: ["#0f0514", "#4a0404", "#991b1b", "#ea580c", "#ffedd5"],
+    shots: [
+      ["A DISTANT OBJECT APPROACHES", "space", ""],
+      ["THE TRAJECTORY", "space", "meteor"],
+      ["CHICXULUB IMPACT", "impact", ""],
+      ["SUPERSONIC SHOCK & EJECTA", "impact", ""],
+      ["DARKENED SKIES OVER EARTH", "ash", "trex"],
+      ["SUNLIGHT FADES INTO WINTER", "ash", "triceratops"],
+      ["GLOBAL FOOD WEBS COLLAPSE", "tree", ""],
+      ["THE END OF A REIGN", "ash", ""],
+      ["A HARSH NEW WORLD", "ash", "small"]
+    ],
+    text: "Approximately sixty-six million years ago, a mountain-sized asteroid roughly ten kilometers across collided with Earth at hypersonic speed near the modern Yucatán Peninsula. The Chicxulub impact released energy equivalent to billions of atomic weapons. Billions of tons of vaporized sulfur and rock were blasted into the upper atmosphere. Searing thermal radiation ignited catastrophic continental wildfires, while colossal tsunamis battered global coastlines. Within hours, incandescent ejecta fell back to Earth, superheating the atmosphere. Soon, a suffocating blanket of dust, soot, and sulfate aerosols shrouded the planet, blocking out the sun and plunging Earth into an impact winter. Photosynthesis collapsed on land and in the oceans. Over three-quarters of all species vanished, including every non-avian dinosaur. An era spanning over one hundred and sixty million years came to a sudden, apocalyptic close."
+  },
+  {
+    start: 540, end: 600,
+    name: "The Dinosaurs That Survived",
+    title: "AN ENDURING LEGACY IN FLIGHT",
+    period: "CENOZOIC TO PRESENT DAY",
+    palette: ["#091e3a", "#155e75", "#0d9488", "#38bdf8", "#fef3c7"],
+    shots: [
+      ["AFTER THE DARKNESS", "ash", ""],
+      ["LIFE EMERGES FROM THE SOIL", "forest", "small"],
+      ["THE SURVIVORS", "sky", "bird"],
+      ["THE THEROPOD HERITAGE", "feather", "theropod"],
+      ["BONES ACROSS TIME", "fossil", "bird"],
+      ["WINGS OVER THE EARTH", "sky", "bird"],
+      ["ONE CONTINUOUS LINEAGE", "forest", "bird"],
+      ["THE LIVING MESOZOIC", "sky", "bird"],
+      ["LOOK UP TO THE TREES", "final", "bird"]
+    ],
+    text: "Yet the story of dinosaurs did not end in the ash of Chicxulub. Deep within the Cretaceous world, one branch of small, feathered maniraptoran theropods had already mastered true powered flight: the birds. Endowed with small body sizes, diverse beaks capable of eating buried seeds, and efficient avian metabolisms, several avian dinosaur lineages survived the global catastrophe. In the millions of years that followed, surviving birds and mammals radiated into the emptied ecological niches of a recovering planet. Today, more than ten thousand living species of birds carry dinosaur genetics, wishbones, hollow pneumatic bones, and vaned plumage into every corner of modern Earth. Birds are not just descended from dinosaurs; they are living, breathing avian dinosaurs. The next time you listen to a bird singing outside your window, remember: the Age of Dinosaurs never truly ended."
+  }
+];
+
+// Compile 85 directed shots
+const SHOTS = [];
+for (let ci = 0; ci < CHAPTERS.length; ci++) {
+  const c = CHAPTERS[ci];
+  const count = c.shots.length;
+  const duration = c.end - c.start;
+  c.shots.forEach((s, i) => {
+    const start = c.start + (duration * i) / count;
+    const end = c.start + (duration * (i + 1)) / count;
+    SHOTS.push({
+      ci,
+      i,
+      start,
+      end,
+      title: s[0],
+      type: s[1],
+      animal: s[2],
+      seed: ci * 29 + i * 37 + 11
+    });
+  });
+}
+
+// Build synchronized subtitles with clean 2-line formatting
+const SUBS = [];
+for (const c of CHAPTERS) {
+  const sentences = (c.text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || []).map(x => x.trim()).filter(Boolean);
+  const units = [];
+  for (const s of sentences) {
+    const words = s.split(/\s+/);
+    let chunk = [];
+    for (const w of words) {
+      if ((chunk.join(' ') + ' ' + w).trim().length > 72 && chunk.length >= 3) {
+        units.push(chunk.join(' '));
+        chunk = [];
+      }
+      chunk.push(w);
+    }
+    if (chunk.length) units.push(chunk.join(' '));
+  }
+  const weights = units.map(u => Math.max(4, u.split(/\s+/).length));
+  let totalW = weights.reduce((a, b) => a + b, 0);
+  let curT = c.start;
+  units.forEach((u, i) => {
+    const end = (i === units.length - 1) ? c.end : curT + ((c.end - curT) * weights[i]) / totalW;
+    SUBS.push({ start: curT, end, text: u });
+    curT = end;
+    totalW -= weights[i];
+  });
+}
+
+// Math & Easing Helpers
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const smoothstep = t => { t = clamp(t); return t * t * (3 - 2 * t); };
+const easeOutCubic = t => 1 - Math.pow(1 - clamp(t), 3);
+const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const fmt = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+// -------------------------------------------------------------
+// WEB AUDIO PROCEDURAL SYNTHESIZER
+// -------------------------------------------------------------
+let audioCtx = null, audioDest = null, masterGain = null, synthRunning = false;
+let padOscs = [], droneOsc = null, windGain = null;
+
+function initAudio() {
+  if (audioCtx) return;
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return;
+  try {
+    audioCtx = new AudioContextClass();
+    audioDest = audioCtx.createMediaStreamDestination();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = Number($('volume').value) * ($('audioToggle').checked ? 0.35 : 0);
+    masterGain.connect(audioCtx.destination);
+    masterGain.connect(audioDest);
+
+    // Deep sub-bass drone
+    droneOsc = audioCtx.createOscillator();
+    droneOsc.type = 'sine';
+    droneOsc.frequency.value = 46.25;
+    const droneFilter = audioCtx.createBiquadFilter();
+    droneFilter.type = 'lowpass';
+    droneFilter.frequency.value = 110;
+    const droneGain = audioCtx.createGain();
+    droneGain.gain.value = 0.22;
+    droneOsc.connect(droneFilter);
+    droneFilter.connect(droneGain);
+    droneGain.connect(masterGain);
+    droneOsc.start();
+
+    // Procedural wind noise
+    const bufferSize = audioCtx.sampleRate * 2;
+    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      output[i] = (b0 + b1 + b2) * 0.12;
+    }
+    const whiteNoise = audioCtx.createBufferSource();
+    whiteNoise.buffer = noiseBuffer;
+    whiteNoise.loop = true;
+    const windFilter = audioCtx.createBiquadFilter();
+    windFilter.type = 'bandpass';
+    windFilter.frequency.value = 260;
+    windFilter.Q.value = 1.2;
+    windGain = audioCtx.createGain();
+    windGain.gain.value = 0.14;
+    whiteNoise.connect(windFilter);
+    windFilter.connect(windGain);
+    windGain.connect(masterGain);
+    whiteNoise.start();
+
+    // Harmonic pads
+    const initialChords = [146.83, 174.61, 220.00, 261.63];
+    for (let i = 0; i < 4; i++) {
+      const osc = audioCtx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.value = initialChords[i];
+      const gain = audioCtx.createGain();
+      gain.gain.value = 0.08;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 650;
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(masterGain);
+      osc.start();
+      padOscs.push({ osc, gain, filter });
+    }
+    synthRunning = true;
+  } catch (e) {
+    console.warn('Web Audio error:', e);
+  }
+}
+
+function updateAudio(chapterIdx, t) {
+  if (!audioCtx || !synthRunning || audioCtx.state !== 'running') return;
+  const chordSets = [
+    [146.83, 174.61, 220.00, 261.63],
+    [130.81, 155.56, 196.00, 233.08],
+    [164.81, 196.00, 246.94, 293.66],
+    [146.83, 185.00, 220.00, 293.66],
+    [174.61, 220.00, 261.63, 349.23],
+    [146.83, 174.61, 233.08, 293.66],
+    [164.81, 207.65, 246.94, 329.63],
+    [130.81, 164.81, 196.00, 261.63],
+    [155.56, 196.00, 233.08, 311.13],
+    [138.59, 164.81, 207.65, 277.18],
+    [146.83, 185.00, 220.00, 329.63]
+  ];
+  const c = chordSets[Math.max(0, Math.min(10, chapterIdx))];
+  const now = audioCtx.currentTime;
+  padOscs.forEach((p, i) => {
+    p.osc.frequency.setTargetAtTime(c[i], now, 0.8);
+  });
+  if (droneOsc) {
+    const droneRoot = chapterIdx === 9 ? 34.65 : (chapterIdx === 1 ? 38.89 : 43.65);
+    droneOsc.frequency.setTargetAtTime(droneRoot, now, 1.2);
+  }
+}
+
+// -------------------------------------------------------------
+// VECTOR PATH & LAYERED RENDERING UTILITIES
+// -------------------------------------------------------------
+function fillShape(p, fill, stroke = null, lw = 2) {
+  ctx.beginPath();
+  p(ctx);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.lineWidth = lw; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+
+function drawRadial(x, y, r, innerCol, outerCol) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, Math.max(0.1, r));
+  g.addColorStop(0, innerCol);
+  g.addColorStop(1, outerCol);
+  return g;
+}
+
+function drawText(txt, x, y, size = 32, col = '#ffffff', weight = 700, align = 'left', shadow = 0) {
+  ctx.save();
+  ctx.textAlign = align;
+  ctx.textBaseline = 'middle';
+  ctx.font = `${weight} ${size}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  if (shadow > 0) {
+    ctx.shadowColor = 'rgba(2, 6, 23, 0.85)';
+    ctx.shadowBlur = shadow;
+    ctx.shadowOffsetY = 2;
+  }
+  ctx.fillStyle = col;
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+
+// -------------------------------------------------------------
+// PROCEDURAL ENVIRONMENT GENERATION (KURZGESAGT AESTHETIC)
+// -------------------------------------------------------------
+function drawSkyAtmosphere(shot, t) {
+  const c = CHAPTERS[shot.ci];
+  const p = c.palette;
+  const kind = shot.type;
+
+  // 4-stop sky gradient
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, H * 0.88);
+  skyGrad.addColorStop(0, p[0]);
+  skyGrad.addColorStop(0.35, p[1]);
+  skyGrad.addColorStop(0.72, p[2]);
+  skyGrad.addColorStop(1, p[3]);
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Volumetric Sun / Celestial Disc
+  if (kind !== 'space' && kind !== 'underwater') {
+    const sunX = W * 0.76 + Math.sin(t * 0.05) * 35;
+    const sunY = H * 0.24;
+    const sunR = (kind === 'volcano' || kind === 'ash') ? 85 : 95;
+
+    // Outer warm corona
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.fillStyle = drawRadial(sunX, sunY, sunR * 3.2, 'rgba(254, 240, 138, 0.35)', 'rgba(254, 240, 138, 0)');
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, sunR * 3.2, 0, TAU);
+    ctx.fill();
+
+    // Secondary glow
+    ctx.fillStyle = drawRadial(sunX, sunY, sunR * 1.6, 'rgba(255, 255, 255, 0.75)', 'rgba(253, 224, 71, 0.1)');
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, sunR * 1.6, 0, TAU);
+    ctx.fill();
+
+    // Core disc
+    ctx.fillStyle = kind === 'ash' ? '#fca5a5' : '#ffffff';
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, sunR * 0.58, 0, TAU);
+    ctx.fill();
+    ctx.restore();
+
+    // Crepuscular god-rays (shafts of light piercing the atmosphere)
+    if (kind === 'forest' || kind === 'river' || kind === 'final') {
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      for (let r = 0; r < 5; r++) {
+        const rayAngle = 0.75 + r * 0.16 + Math.sin(t * 0.2 + r) * 0.04;
+        const rayLen = 1400;
+        const gRay = ctx.createLinearGradient(sunX, sunY, sunX + Math.cos(rayAngle) * rayLen, sunY + Math.sin(rayAngle) * rayLen);
+        gRay.addColorStop(0, 'rgba(254, 249, 195, 0.28)');
+        gRay.addColorStop(0.65, 'rgba(254, 240, 138, 0.08)');
+        gRay.addColorStop(1, 'rgba(254, 240, 138, 0)');
+        ctx.fillStyle = gRay;
+        ctx.beginPath();
+        ctx.moveTo(sunX, sunY);
+        ctx.lineTo(sunX + Math.cos(rayAngle - 0.035) * rayLen, sunY + Math.sin(rayAngle - 0.035) * rayLen);
+        ctx.lineTo(sunX + Math.cos(rayAngle + 0.035) * rayLen, sunY + Math.sin(rayAngle + 0.035) * rayLen);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+  }
+
+  // Soft drifting clouds with depth & Kurzgesagt rounded silhouettes
+  if (kind !== 'space' && kind !== 'underwater') {
+    for (let i = 0; i < 7; i++) {
+      const cx = ((i * 380 + t * (12 + i * 3) + shot.seed * 53) % (W + 600)) - 300;
+      const cy = 80 + (i % 4) * 65;
+      const sc = 0.75 + hash(i * 13) * 0.65;
+      drawKurzCloud(cx, cy, sc, p[3], 0.25 + (i % 3) * 0.08);
+    }
+  }
+}
+
+function drawKurzCloud(x, y, s, tint, alpha) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = '#ffffff';
+
+  ctx.beginPath();
+  ctx.arc(-80, 20, 48, 0, TAU);
+  ctx.arc(-30, -8, 62, 0, TAU);
+  ctx.arc(42, -18, 76, 0, TAU);
+  ctx.arc(115, 6, 54, 0, TAU);
+  ctx.arc(165, 26, 38, 0, TAU);
+  ctx.roundRect(-85, 10, 260, 48, 24);
+  ctx.fill();
+
+  ctx.fillStyle = tint;
+  ctx.globalAlpha = alpha * 0.55;
+  ctx.beginPath();
+  ctx.roundRect(-82, 38, 254, 20, 10);
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawMountainPlanes(shot, t) {
+  const c = CHAPTERS[shot.ci];
+  const p = c.palette;
+  const seed = shot.seed;
+
+  // Far atmospheric silhouette
+  ctx.save();
+  fillShape(path => {
+    path.moveTo(-40, H);
+    path.lineTo(-40, 490);
+    for (let x = -40; x <= W + 60; x += 60) {
+      const h1 = Math.sin(x * 0.0018 + seed * 0.3) * 140;
+      const h2 = Math.cos(x * 0.0039 + seed * 0.8) * 75;
+      path.lineTo(x, 480 + h1 + h2);
+    }
+    path.lineTo(W + 60, H);
+    path.closePath();
+  }, p[1] + '55');
+  ctx.restore();
+
+  // Mid-distance tectonic mountain range
+  ctx.save();
+  const mountainBaseY = 620;
+  fillShape(path => {
+    path.moveTo(-40, H);
+    path.lineTo(-40, mountainBaseY);
+    for (let x = -40; x <= W + 60; x += 40) {
+      const v = Math.sin(x * 0.0028 + seed) * 165 + Math.sin(x * 0.0062 + seed * 2.3) * 65;
+      path.lineTo(x, mountainBaseY + v);
+    }
+    path.lineTo(W + 60, H);
+    path.closePath();
+  }, p[2]);
+
+  // Facet lighting on peaks
+  for (let x = 60; x < W; x += 180) {
+    const peakY = mountainBaseY + Math.sin(x * 0.0028 + seed) * 165 + Math.sin(x * 0.0062 + seed * 2.3) * 65;
+    fillShape(path => {
+      path.moveTo(x, peakY);
+      path.lineTo(x + 75, mountainBaseY + 110);
+      path.lineTo(x, mountainBaseY + 130);
+      path.closePath();
+    }, 'rgba(255, 255, 255, 0.08)');
+    fillShape(path => {
+      path.moveTo(x, peakY);
+      path.lineTo(x - 65, mountainBaseY + 110);
+      path.lineTo(x, mountainBaseY + 130);
+      path.closePath();
+    }, 'rgba(0, 0, 0, 0.16)');
+  }
+  ctx.restore();
+
+  // Rolling midground prehistoric hills
+  const kind = shot.type;
+  const hillColor = (kind === 'volcano' || kind === 'ash') ? '#2e262a' : (kind === 'dry' ? '#78350f' : '#115e59');
+  fillShape(path => {
+    path.moveTo(-40, H);
+    path.lineTo(-40, 750);
+    path.bezierCurveTo(W * 0.28, 710, W * 0.45, 780, W * 0.72, 730);
+    path.bezierCurveTo(W * 0.88, 700, W * 0.96, 740, W + 40, 760);
+    path.lineTo(W + 40, H);
+    path.closePath();
+  }, hillColor);
+}
+
+// -------------------------------------------------------------
+// PREHISTORIC FLORA & FOLIAGE
+// -------------------------------------------------------------
+function drawAraucariaConifer(x, y, s, t, seed) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+
+  const wind = Math.sin(t * 0.8 + seed) * 0.025;
+  ctx.rotate(wind);
+
+  fillShape(p => {
+    p.moveTo(-22, 0);
+    p.bezierCurveTo(-14, -200, -10, -420, 0, -560);
+    p.bezierCurveTo(10, -420, 14, -200, 22, 0);
+    p.closePath();
+  }, '#2b211a');
+
+  const whorls = 8;
+  for (let w = 0; w < whorls; w++) {
+    const wy = -180 - w * 48;
+    const span = (whorls - w) * 26 + 35;
+    for (const side of [-1, 1]) {
+      fillShape(p => {
+        p.moveTo(0, wy);
+        p.bezierCurveTo(side * span * 0.4, wy - 10, side * span * 0.8, wy - 5, side * span, wy + 20);
+        p.bezierCurveTo(side * span * 0.75, wy + 28, side * span * 0.35, wy + 14, 0, wy + 8);
+        p.closePath();
+      }, w % 2 === 0 ? '#064e3b' : '#047857');
+
+      fillShape(p => {
+        p.moveTo(side * span, wy + 20);
+        p.quadraticCurveTo(side * (span + 8), wy + 38, side * (span - 4), wy + 42);
+        p.quadraticCurveTo(side * (span - 8), wy + 32, side * span, wy + 20);
+      }, '#10b981');
+    }
+  }
+  ctx.restore();
+}
+
+function drawCycad(x, y, s, t, seed) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+
+  fillShape(p => {
+    p.moveTo(-32, 0);
+    p.bezierCurveTo(-40, -50, -36, -110, -18, -145);
+    p.lineTo(18, -145);
+    p.bezierCurveTo(36, -110, 40, -50, 32, 0);
+    p.closePath();
+  }, '#451a03');
+
+  for (let row = 0; row < 5; row++) {
+    const ry = -20 - row * 24;
+    for (let c = -2; c <= 2; c++) {
+      fillShape(p => {
+        const cx = c * 14 + (row % 2 ? 7 : 0);
+        p.moveTo(cx, ry - 8);
+        p.lineTo(cx + 8, ry);
+        p.lineTo(cx, ry + 8);
+        p.lineTo(cx - 8, ry);
+        p.closePath();
+      }, '#78350f');
+    }
+  }
+
+  for (let i = 0; i < 12; i++) {
+    const ang = -2.4 + (i / 11) * 4.8;
+    const frondWind = Math.sin(t * 1.8 + i + seed) * 0.05;
+    ctx.save();
+    ctx.translate(0, -145);
+    ctx.rotate(ang + frondWind);
+
+    fillShape(p => {
+      p.moveTo(-3, 0);
+      p.bezierCurveTo(10, -80, 20, -150, 15, -210);
+      p.bezierCurveTo(8, -150, -2, -80, 3, 0);
+    }, i % 2 === 0 ? '#15803d' : '#166534');
+
+    for (let k = 0; k < 10; k++) {
+      const py = -25 - k * 18;
+      const lw = 22 - k * 1.5;
+      fillShape(p => {
+        p.moveTo(0, py);
+        p.lineTo(lw, py - 6);
+        p.lineTo(lw * 0.8, py + 4);
+        p.closePath();
+      }, '#22c55e');
+      fillShape(p => {
+        p.moveTo(0, py);
+        p.lineTo(-lw, py - 6);
+        p.lineTo(-lw * 0.8, py + 4);
+        p.closePath();
+      }, '#16a34a');
+    }
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+function drawForegroundFern(x, y, s, t, seed) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+
+  const wind = Math.sin(t * 1.4 + seed) * 0.08;
+  ctx.rotate(wind);
+
+  fillShape(p => {
+    p.moveTo(-10, 0);
+    p.bezierCurveTo(-50, -120, -70, -280, 15, -420);
+    p.bezierCurveTo(20, -260, 45, -100, 10, 0);
+    p.closePath();
+  }, '#064e3b');
+
+  for (let i = 0; i < 14; i++) {
+    const yy = -30 - i * 27;
+    const w = (14 - i) * 6.5;
+    for (const side of [-1, 1]) {
+      ctx.save();
+      ctx.translate((i - 6) * 1.6, yy);
+      ctx.rotate(side * (0.28 + i * 0.035));
+      fillShape(p => {
+        p.moveTo(0, 0);
+        p.bezierCurveTo(side * w * 0.45, -18, side * w * 0.85, -28, side * w, -42);
+        p.bezierCurveTo(side * w * 0.85, 8, side * w * 0.4, 18, 0, 10);
+        p.closePath();
+      }, i % 3 === 0 ? '#10b981' : '#047857');
+      ctx.restore();
+    }
+  }
+  ctx.restore();
+}
+
+function drawCretaceousFlowers(x, y, s, seed) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+
+  fillShape(p => {
+    p.moveTo(-3, 0);
+    p.quadraticCurveTo(8, -45, 0, -90);
+    p.lineTo(4, -90);
+    p.quadraticCurveTo(12, -45, 3, 0);
+  }, '#16a34a');
+
+  const petals = 7;
+  for (let i = 0; i < petals; i++) {
+    const a = (i / petals) * TAU;
+    ctx.save();
+    ctx.translate(0, -90);
+    ctx.rotate(a);
+    fillShape(p => {
+      p.moveTo(0, 0);
+      p.bezierCurveTo(-14, -22, -18, -42, 0, -54);
+      p.bezierCurveTo(18, -42, 14, -22, 0, 0);
+    }, i % 2 === 0 ? '#fbcfe8' : '#f472b6');
+    ctx.restore();
+  }
+
+  ctx.fillStyle = '#facc15';
+  ctx.beginPath();
+  ctx.arc(0, -90, 12, 0, TAU);
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawPrehistoricWater(shot, t) {
+  const kind = shot.type;
+  if (!['river', 'ocean', 'underwater'].includes(kind)) return;
+
+  const waterY = 720;
+  const waterH = H - waterY;
+
+  const gWater = ctx.createLinearGradient(0, waterY, 0, H);
+  gWater.addColorStop(0, kind === 'underwater' ? '#0369a1' : '#0d9488');
+  gWater.addColorStop(0.45, kind === 'underwater' ? '#075985' : '#0f766e');
+  gWater.addColorStop(1, '#022c43');
+  ctx.fillStyle = gWater;
+  ctx.fillRect(0, waterY, W, waterH);
+
+  ctx.save();
+  for (let i = 0; i < 18; i++) {
+    const rx = ((i * 147 + t * (25 + (i % 4) * 12) + shot.seed * 31) % (W + 200)) - 100;
+    const ry = waterY + 25 + (i % 7) * 44;
+    const rw = 65 + (i % 5) * 35;
+    const rh = 6 + (i % 3) * 3;
+    ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.18 + Math.sin(t * 2 + i) * 0.08) + ')';
+    ctx.beginPath();
+    ctx.ellipse(rx, ry, rw, rh, 0, 0, TAU);
+    ctx.fill();
+  }
+
+  if (kind === 'underwater') {
+    ctx.globalCompositeOperation = 'screen';
+    for (let i = 0; i < 14; i++) {
+      const cx = (i * 155 + Math.sin(t * 1.2 + i) * 35) % W;
+      const cy = waterY + 40 + (i % 6) * 55;
+      ctx.strokeStyle = 'rgba(167, 243, 208, 0.28)';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, 55 + Math.sin(t + i) * 20, 18, 0.2, 0, TAU);
+      ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+
+function drawVolcanoTraps(shot, t) {
+  ctx.save();
+  const vx = 480, vy = 360;
+
+  fillShape(p => {
+    p.moveTo(120, H);
+    p.bezierCurveTo(240, 680, 360, 520, vx, vy);
+    p.lineTo(vx + 90, vy + 8);
+    p.bezierCurveTo(vx + 210, 520, vx + 380, 680, W * 0.65, H);
+    p.closePath();
+  }, '#231821');
+
+  fillShape(p => {
+    p.moveTo(vx - 20, vy + 10);
+    p.lineTo(vx + 45, vy - 15);
+    p.lineTo(vx + 110, vy + 12);
+    p.lineTo(vx + 45, vy + 24);
+    p.closePath();
+  }, '#ef4444');
+
+  ctx.globalCompositeOperation = 'screen';
+  ctx.fillStyle = drawRadial(vx + 45, vy, 190, 'rgba(239, 68, 68, 0.7)', 'rgba(239, 68, 68, 0)');
+  ctx.beginPath();
+  ctx.arc(vx + 45, vy, 190, 0, TAU);
+  ctx.fill();
+
+  ctx.strokeStyle = '#f97316';
+  ctx.lineWidth = 9;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(vx + 45, vy + 15);
+  ctx.bezierCurveTo(vx + 20, vy + 140, vx - 50, vy + 240, vx - 120, H);
+  ctx.stroke();
+
+  ctx.strokeStyle = '#facc15';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  for (let i = 0; i < 12; i++) {
+    const ax = vx + 45 + Math.sin(t * 0.8 + i) * 55;
+    const ay = vy - 45 - i * 36;
+    const ar = 45 + i * 16;
+    ctx.fillStyle = i % 2 === 0 ? 'rgba(74, 55, 66, 0.65)' : 'rgba(45, 34, 42, 0.75)';
+    ctx.beginPath();
+    ctx.arc(ax, ay, ar, 0, TAU);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+// -------------------------------------------------------------
+// ADVANCED VECTOR DINOSAUR ANATOMICAL ILLUSTRATORS
+// -------------------------------------------------------------
+
+function drawSauropod(ctx, x, y, scale, t, seed, flip = 1, species = 'sauropod') {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale * flip, scale);
+
+  const isBrachio = (species === 'brachio');
+  const isDiplo = (species === 'diplodocus');
+
+  const walkSpeed = 2.4;
+  const phi = t * walkSpeed + seed;
+  const bob = Math.sin(phi * 2) * 5;
+
+  const colBase = isBrachio ? '#c2703f' : (isDiplo ? '#3f6655' : '#2b6cb0');
+  const colLight = isBrachio ? '#fbebc8' : (isDiplo ? '#d1fae5' : '#bfdbfe');
+  const colDark = isBrachio ? '#6b2d12' : (isDiplo ? '#1e3a2f' : '#1e3a8a');
+  const colAccent = isBrachio ? '#eab308' : (isDiplo ? '#f59e0b' : '#38bdf8');
+
+  const bodyX = 0;
+  const bodyY = -140 + bob;
+  const bodyW = isBrachio ? 240 : (isDiplo ? 220 : 210);
+  const bodyH = isBrachio ? 135 : 100;
+
+  // Far limbs
+  for (let side = 0; side < 2; side++) {
+    const legX = side === 0 ? -bodyW * 0.55 : bodyW * 0.52;
+    const phaseOffset = side === 0 ? Math.PI : Math.PI * 0.5;
+    const legPhase = phi + phaseOffset;
+    const stepX = Math.sin(legPhase) * 26;
+    const stepY = Math.max(0, -Math.cos(legPhase) * 16);
+    const legH = side === 1 && isBrachio ? 225 : 175;
+
+    fillShape(p => {
+      p.moveTo(legX - 28, bodyY + 45);
+      p.bezierCurveTo(legX - 25, bodyY + 110, legX + stepX - 24, bodyY + legH - 25, legX + stepX - 30, bodyY + legH - stepY);
+      p.lineTo(legX + stepX + 32, bodyY + legH - stepY);
+      p.bezierCurveTo(legX + stepX + 26, bodyY + legH - 25, legX + 26, bodyY + 110, legX + 28, bodyY + 45);
+      p.closePath();
+    }, colDark);
+  }
+
+  // Tail
+  const tailBaseX = -bodyW * 0.75;
+  const tailBaseY = bodyY - 15;
+  const tailSegments = isDiplo ? 7 : 5;
+  const tailTotalLen = isDiplo ? 420 : 280;
+
+  ctx.save();
+  const tailPoints = [{ x: tailBaseX, y: tailBaseY }];
+  let curTX = tailBaseX, curTY = tailBaseY;
+  for (let s = 1; s <= tailSegments; s++) {
+    const sLen = tailTotalLen / tailSegments;
+    const swayAngle = Math.sin(t * 2.8 - s * 0.45 + seed) * (0.14 + s * 0.05);
+    curTX -= Math.cos(swayAngle) * sLen;
+    curTY += Math.sin(swayAngle) * sLen * 0.85;
+    tailPoints.push({ x: curTX, y: curTY });
+  }
+
+  fillShape(p => {
+    p.moveTo(tailPoints[0].x, tailPoints[0].y - 25);
+    for (let s = 1; s <= tailSegments; s++) {
+      const w = (1 - s / tailSegments) * 26 + 3;
+      p.lineTo(tailPoints[s].x, tailPoints[s].y - w);
+    }
+    p.lineTo(tailPoints[tailSegments].x, tailPoints[tailSegments].y);
+    for (let s = tailSegments; s >= 1; s--) {
+      const w = (1 - s / tailSegments) * 26 + 3;
+      p.lineTo(tailPoints[s].x, tailPoints[s].y + w);
+    }
+    p.lineTo(tailPoints[0].x, tailPoints[0].y + 35);
+    p.closePath();
+  }, colBase);
+
+  if (isDiplo) {
+    for (let s = 0; s < tailSegments - 1; s++) {
+      fillShape(p => {
+        p.moveTo(tailPoints[s].x, tailPoints[s].y - 12);
+        p.lineTo(tailPoints[s].x - 8, tailPoints[s].y - 24);
+        p.lineTo(tailPoints[s].x - 14, tailPoints[s].y - 10);
+        p.closePath();
+      }, colAccent);
+    }
+  }
+  ctx.restore();
+
+  // Main Torso
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.8, bodyY + 10);
+    p.bezierCurveTo(-bodyW * 0.6, bodyY - bodyH * 0.9, bodyW * 0.2, bodyY - bodyH * (isBrachio ? 1.15 : 0.85), bodyW * 0.78, bodyY - 15);
+    p.bezierCurveTo(bodyW * 0.85, bodyY + 45, bodyW * 0.5, bodyY + bodyH * 0.85, 0, bodyY + bodyH * 0.88);
+    p.bezierCurveTo(-bodyW * 0.5, bodyY + bodyH * 0.85, -bodyW * 0.75, bodyY + 45, -bodyW * 0.8, bodyY + 10);
+    p.closePath();
+  }, colBase);
+
+  // Counter-shading
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.7, bodyY + 25);
+    p.bezierCurveTo(-bodyW * 0.4, bodyY + bodyH * 0.82, bodyW * 0.2, bodyY + bodyH * 0.85, bodyW * 0.72, bodyY + 15);
+    p.bezierCurveTo(bodyW * 0.4, bodyY + bodyH * 0.5, -bodyW * 0.3, bodyY + bodyH * 0.5, -bodyW * 0.7, bodyY + 25);
+    p.closePath();
+  }, colLight);
+
+  // Near limbs
+  for (let side = 0; side < 2; side++) {
+    const legX = side === 0 ? -bodyW * 0.55 : bodyW * 0.52;
+    const phaseOffset = side === 0 ? 0 : Math.PI * 1.5;
+    const legPhase = phi + phaseOffset;
+    const stepX = Math.sin(legPhase) * 26;
+    const stepY = Math.max(0, -Math.cos(legPhase) * 16);
+    const legH = side === 1 && isBrachio ? 225 : 175;
+
+    fillShape(p => {
+      p.moveTo(legX - 34, bodyY + 25);
+      p.bezierCurveTo(legX - 30, bodyY + 110, legX + stepX - 26, bodyY + legH - 30, legX + stepX - 32, bodyY + legH - stepY);
+      p.lineTo(legX + stepX + 36, bodyY + legH - stepY);
+      p.bezierCurveTo(legX + stepX + 28, bodyY + legH - 30, legX + 30, bodyY + 110, legX + 34, bodyY + 25);
+      p.closePath();
+    }, colBase);
+
+    for (let c = 0; c < 3; c++) {
+      fillShape(p => {
+        const cx = legX + stepX - 22 + c * 20;
+        const cy = bodyY + legH - stepY;
+        p.moveTo(cx - 7, cy);
+        p.lineTo(cx, cy + 9);
+        p.lineTo(cx + 7, cy);
+        p.closePath();
+      }, '#fef3c7');
+    }
+  }
+
+  // Neck & Head
+  const neckBaseX = bodyW * 0.65;
+  const neckBaseY = bodyY - 15;
+  const neckHeight = isBrachio ? 410 : (isDiplo ? 260 : 310);
+  const neckForward = isBrachio ? 110 : (isDiplo ? 320 : 210);
+
+  const headX = neckBaseX + neckForward;
+  const headY = neckBaseY - neckHeight + Math.sin(t * 1.5 + seed) * 12;
+
+  fillShape(p => {
+    p.moveTo(neckBaseX - 35, neckBaseY);
+    p.bezierCurveTo(neckBaseX + neckForward * 0.2, neckBaseY - neckHeight * 0.45, headX - 65, headY + 70, headX - 35, headY + 15);
+    p.lineTo(headX + 25, headY);
+    p.bezierCurveTo(headX - 15, headY + 55, neckBaseX + neckForward * 0.45, neckBaseY - neckHeight * 0.35, neckBaseX + 35, neckBaseY + 30);
+    p.closePath();
+  }, colBase);
+
+  // Head
+  const headW = isBrachio ? 58 : 50;
+  const headH = isBrachio ? 42 : 30;
+
+  fillShape(p => {
+    p.moveTo(headX - 25, headY + 15);
+    p.bezierCurveTo(headX - 15, headY - headH * (isBrachio ? 1.4 : 0.9), headX + 25, headY - headH * 0.8, headX + headW, headY + 2);
+    p.bezierCurveTo(headX + headW + 12, headY + 14, headX + 35, headY + 26, headX - 15, headY + 22);
+    p.closePath();
+  }, colBase);
+
+  if (isBrachio) {
+    fillShape(p => {
+      p.moveTo(headX + 5, headY - headH * 1.1);
+      p.quadraticCurveTo(headX + 22, headY - headH * 1.25, headX + 32, headY - headH * 0.8);
+      p.quadraticCurveTo(headX + 18, headY - headH * 0.7, headX + 5, headY - headH * 1.1);
+    }, colAccent);
+  }
+
+  // Eye
+  const eyeX = headX + 20, eyeY = headY - 4;
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(eyeX, eyeY, 6, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = colAccent;
+  ctx.beginPath();
+  ctx.arc(eyeX, eyeY, 4, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(eyeX + 1.5, eyeY - 1.5, 1.8, 0, TAU);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawTheropod(ctx, x, y, scale, t, seed, flip = 1, species = 'trex') {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale * flip, scale);
+
+  const isRex = (species === 'trex');
+  const isAllo = (species === 'allosaurus');
+
+  const walkSpeed = 3.2;
+  const phi = t * walkSpeed + seed;
+  const hipBob = Math.sin(phi * 2) * 6;
+
+  const colBase = isRex ? '#506b3a' : '#334155';
+  const colLight = isRex ? '#f5e6c8' : '#f1f5f9';
+  const colDark = isRex ? '#202f18' : '#1e293b';
+  const colStripe = isRex ? '#1c2415' : '#0f172a';
+  const colAccent = isRex ? '#eab308' : '#ef4444';
+
+  const bodyX = 0, bodyY = -160 + hipBob;
+
+  // Far leg
+  const farPhase = phi + Math.PI;
+  const farStepX = Math.sin(farPhase) * 36;
+  const farStepY = Math.max(0, -Math.cos(farPhase) * 22);
+
+  fillShape(p => {
+    p.moveTo(bodyX - 10, bodyY + 20);
+    p.bezierCurveTo(bodyX - 45, bodyY + 90, bodyX + farStepX - 35, bodyY + 160, bodyX + farStepX - 25, bodyY + 230 - farStepY);
+    p.lineTo(bodyX + farStepX + 45, bodyY + 230 - farStepY);
+    p.bezierCurveTo(bodyX + farStepX + 25, bodyY + 160, bodyX + 35, bodyY + 90, bodyX + 25, bodyY + 20);
+    p.closePath();
+  }, colDark);
+
+  // Far arm
+  fillShape(p => {
+    const armX = bodyX + 110, armY = bodyY + 45;
+    p.moveTo(armX, armY);
+    p.lineTo(armX + 28, armY + 38);
+    p.lineTo(armX + 40, armY + 32);
+    p.lineTo(armX + 25, armY + 45);
+    p.lineTo(armX - 4, armY + 12);
+    p.closePath();
+  }, colDark);
+
+  // Tail
+  const tailLen = isRex ? 340 : 310;
+  fillShape(p => {
+    p.moveTo(bodyX - 60, bodyY - 15);
+    p.bezierCurveTo(bodyX - 140, bodyY - 25 + Math.sin(t * 1.5) * 15, bodyX - 240, bodyY - 15, bodyX - tailLen, bodyY + 15 + Math.sin(t * 1.8) * 20);
+    p.bezierCurveTo(bodyX - 230, bodyY + 65, bodyX - 120, bodyY + 70, bodyX - 50, bodyY + 45);
+    p.closePath();
+  }, colBase);
+
+  // Stripes on tail
+  for (let s = 0; s < 7; s++) {
+    const sx = bodyX - 90 - s * 34;
+    const sy = bodyY + s * 4;
+    fillShape(p => {
+      p.moveTo(sx, sy - 18);
+      p.lineTo(sx - 12, sy + 25);
+      p.lineTo(sx - 20, sy + 25);
+      p.lineTo(sx - 8, sy - 18);
+      p.closePath();
+    }, colStripe);
+  }
+
+  // Torso
+  fillShape(p => {
+    p.moveTo(bodyX - 70, bodyY);
+    p.bezierCurveTo(bodyX - 40, bodyY - 70, bodyX + 80, bodyY - 65, bodyX + 140, bodyY + 15);
+    p.bezierCurveTo(bodyX + 150, bodyY + 75, bodyX + 70, bodyY + 95, bodyX, bodyY + 85);
+    p.bezierCurveTo(-50, bodyY + 75, -65, bodyY + 45, bodyX - 70, bodyY);
+    p.closePath();
+  }, colBase);
+
+  // Throat counter-shading
+  fillShape(p => {
+    p.moveTo(bodyX - 40, bodyY + 45);
+    p.bezierCurveTo(bodyX + 20, bodyY + 82, bodyX + 90, bodyY + 70, bodyX + 135, bodyY + 25);
+    p.bezierCurveTo(bodyX + 90, bodyY + 55, bodyX + 30, bodyY + 58, bodyX - 40, bodyY + 45);
+    p.closePath();
+  }, colLight);
+
+  // Near leg
+  const nearPhase = phi;
+  const nearStepX = Math.sin(nearPhase) * 36;
+  const nearStepY = Math.max(0, -Math.cos(nearPhase) * 22);
+
+  fillShape(p => {
+    p.moveTo(bodyX - 25, bodyY - 10);
+    p.bezierCurveTo(bodyX - 60, bodyY + 70, bodyX + nearStepX - 40, bodyY + 150, bodyX + nearStepX - 30, bodyY + 230 - nearStepY);
+    p.lineTo(bodyX + nearStepX + 55, bodyY + 230 - nearStepY);
+    p.bezierCurveTo(bodyX + nearStepX + 35, bodyY + 150, bodyX + 45, bodyY + 70, bodyX + 35, bodyY - 10);
+    p.closePath();
+  }, colBase);
+
+  // Talons
+  for (let c = 0; c < 3; c++) {
+    const tx = bodyX + nearStepX - 22 + c * 25;
+    const ty = bodyY + 230 - nearStepY;
+    fillShape(p => {
+      p.moveTo(tx - 10, ty);
+      p.bezierCurveTo(tx, ty + 12, tx + 18, ty + 6, tx + 24, ty + 2);
+      p.bezierCurveTo(tx + 12, ty - 4, tx + 2, ty - 2, tx - 10, ty);
+      p.closePath();
+    }, '#0f172a');
+  }
+
+  // Near forearm
+  fillShape(p => {
+    const armX = bodyX + 115, armY = bodyY + 48;
+    p.moveTo(armX, armY);
+    p.lineTo(armX + (isAllo ? 45 : 32), armY + 35);
+    p.lineTo(armX + (isAllo ? 62 : 44), armY + 26);
+    p.lineTo(armX + (isAllo ? 48 : 34), armY + 46);
+    p.lineTo(armX - 4, armY + 14);
+    p.closePath();
+  }, colBase);
+
+  // Neck & Skull
+  const neckBaseX = bodyX + 120, neckBaseY = bodyY + 10;
+  const skullX = neckBaseX + (isRex ? 95 : 110);
+  const skullY = neckBaseY - (isRex ? 85 : 75) + Math.sin(t * 1.8) * 6;
+
+  fillShape(p => {
+    p.moveTo(neckBaseX - 35, neckBaseY - 45);
+    p.bezierCurveTo(neckBaseX + 20, neckBaseY - 110, skullX - 45, skullY + 30, skullX - 15, skullY - 20);
+    p.lineTo(skullX + 45, skullY + 25);
+    p.bezierCurveTo(skullX - 10, skullY + 65, neckBaseX + 35, neckBaseY + 15, neckBaseX - 15, neckBaseY + 40);
+    p.closePath();
+  }, colBase);
+
+  const jawLen = isRex ? 130 : 120;
+  fillShape(p => {
+    p.moveTo(skullX - 25, skullY - 20);
+    p.bezierCurveTo(skullX + 30, skullY - 45, skullX + jawLen * 0.7, skullY - 40, skullX + jawLen, skullY);
+    p.lineTo(skullX + jawLen - 15, skullY + 38);
+    p.bezierCurveTo(skullX + jawLen * 0.5, skullY + 42, skullX + 20, skullY + 45, skullX - 25, skullY + 25);
+    p.closePath();
+  }, colBase);
+
+  if (isAllo) {
+    fillShape(p => {
+      p.moveTo(skullX + 35, skullY - 38);
+      p.lineTo(skullX + 55, skullY - 62);
+      p.lineTo(skullX + 68, skullY - 34);
+      p.closePath();
+    }, colAccent);
+  }
+
+  for (let z = 0; z < 8; z++) {
+    const zx = skullX + 40 + z * (jawLen * 0.075);
+    fillShape(p => {
+      p.moveTo(zx, skullY + 10);
+      p.lineTo(zx + 4, skullY + 24 + (z % 3) * 5);
+      p.lineTo(zx + 8, skullY + 10);
+      p.closePath();
+    }, '#fffbeb');
+  }
+
+  // Eye
+  const eyeX = skullX + (isRex ? 35 : 42);
+  const eyeY = skullY - 16;
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(eyeX, eyeY, 8, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = colAccent;
+  ctx.beginPath();
+  ctx.arc(eyeX, eyeY, 5.5, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#000000';
+  ctx.beginPath();
+  ctx.ellipse(eyeX, eyeY, 1.8, 5, 0, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(eyeX + 2, eyeY - 2, 2, 0, TAU);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawTriceratops(ctx, x, y, scale, t, seed, flip = 1) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale * flip, scale);
+
+  const phi = t * 2.8 + seed;
+  const bob = Math.sin(phi * 2) * 4;
+
+  const colBase = '#0f766e';
+  const colLight = '#fef3c7';
+  const colDark = '#134e4a';
+  const colFrillRing = '#f97316';
+  const colHorn = '#fffbeb';
+
+  const bodyX = 0, bodyY = -130 + bob;
+  const bodyW = 190, bodyH = 110;
+
+  for (let s = 0; s < 2; s++) {
+    const lx = s === 0 ? -bodyW * 0.5 : bodyW * 0.45;
+    const lPhase = phi + (s === 0 ? Math.PI : Math.PI * 0.5);
+    const stepX = Math.sin(lPhase) * 22;
+    fillShape(p => {
+      p.moveTo(lx - 25, bodyY + 30);
+      p.lineTo(lx + stepX - 25, bodyY + 170);
+      p.lineTo(lx + stepX + 30, bodyY + 170);
+      p.lineTo(lx + 25, bodyY + 30);
+      p.closePath();
+    }, colDark);
+  }
+
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.7, bodyY - 10);
+    p.bezierCurveTo(-bodyW - 60, bodyY + Math.sin(t * 2) * 15, -bodyW - 120, bodyY + 25, -bodyW - 190, bodyY + 65);
+    p.bezierCurveTo(-bodyW - 110, bodyY + 85, -bodyW * 0.6, bodyY + 55, -bodyW * 0.5, bodyY + 30);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.75, bodyY);
+    p.bezierCurveTo(-bodyW * 0.5, bodyY - bodyH * 0.85, bodyW * 0.3, bodyY - bodyH * 0.9, bodyW * 0.75, bodyY);
+    p.bezierCurveTo(bodyW * 0.8, bodyY + bodyH * 0.8, -bodyW * 0.5, bodyY + bodyH * 0.85, -bodyW * 0.75, bodyY);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.6, bodyY + 25);
+    p.bezierCurveTo(0, bodyY + bodyH * 0.75, bodyW * 0.5, bodyY + bodyH * 0.7, bodyW * 0.7, bodyY + 15);
+    p.bezierCurveTo(bodyW * 0.4, bodyY + bodyH * 0.5, -bodyW * 0.3, bodyY + bodyH * 0.5, -bodyW * 0.6, bodyY + 25);
+    p.closePath();
+  }, colLight);
+
+  for (let s = 0; s < 2; s++) {
+    const lx = s === 0 ? -bodyW * 0.5 : bodyW * 0.45;
+    const lPhase = phi + (s === 0 ? 0 : Math.PI * 1.5);
+    const stepX = Math.sin(lPhase) * 22;
+    fillShape(p => {
+      p.moveTo(lx - 30, bodyY + 25);
+      p.lineTo(lx + stepX - 30, bodyY + 175);
+      p.lineTo(lx + stepX + 35, bodyY + 175);
+      p.lineTo(lx + 30, bodyY + 25);
+      p.closePath();
+    }, colBase);
+
+    for (let c = 0; c < 3; c++) {
+      fillShape(p => {
+        const cx = lx + stepX - 20 + c * 20;
+        p.moveTo(cx - 7, bodyY + 175);
+        p.lineTo(cx, bodyY + 184);
+        p.lineTo(cx + 7, bodyY + 175);
+        p.closePath();
+      }, colLight);
+    }
+  }
+
+  const headX = bodyW * 0.75, headY = bodyY - 10;
+
+  fillShape(p => {
+    p.moveTo(headX - 10, headY - 10);
+    p.bezierCurveTo(headX + 25, headY - 165, headX + 175, headY - 150, headX + 195, headY - 15);
+    p.bezierCurveTo(headX + 140, headY + 35, headX + 50, headY + 30, headX - 10, headY - 10);
+    p.closePath();
+  }, colDark);
+
+  for (let r = 0; r < 2; r++) {
+    const fx = headX + 65 + r * 65;
+    const fy = headY - 85 + r * 15;
+    ctx.fillStyle = colFrillRing;
+    ctx.beginPath();
+    ctx.arc(fx, fy, 22, 0, TAU);
+    ctx.fill();
+    ctx.fillStyle = '#fef08a';
+    ctx.beginPath();
+    ctx.arc(fx, fy, 12, 0, TAU);
+    ctx.fill();
+  }
+
+  fillShape(p => {
+    p.moveTo(headX + 110, headY + 5);
+    p.bezierCurveTo(headX + 175, headY - 10, headX + 215, headY + 10, headX + 235, headY + 45);
+    p.bezierCurveTo(headX + 210, headY + 70, headX + 155, headY + 55, headX + 110, headY + 35);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(headX + 225, headY + 35);
+    p.quadraticCurveTo(headX + 255, headY + 55, headX + 235, headY + 75);
+    p.lineTo(headX + 215, headY + 65);
+    p.closePath();
+  }, colLight);
+
+  for (let h = 0; h < 2; h++) {
+    const hx = headX + 130 + h * 35;
+    const hy = headY - 20 - h * 15;
+    fillShape(p => {
+      p.moveTo(hx - 15, hy);
+      p.quadraticCurveTo(hx + 45, hy - 110, hx + 110, hy - 145);
+      p.quadraticCurveTo(hx + 65, hy - 40, hx + 15, hy + 10);
+      p.closePath();
+    }, colHorn);
+  }
+
+  fillShape(p => {
+    p.moveTo(headX + 205, headY + 18);
+    p.lineTo(headX + 220, headY - 28);
+    p.lineTo(headX + 230, headY + 22);
+    p.closePath();
+  }, colHorn);
+
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(headX + 135, headY + 8, 7, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(headX + 137, headY + 6, 2, 0, TAU);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawHadrosaur(ctx, x, y, scale, t, seed, flip = 1) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale * flip, scale);
+
+  const phi = t * 3.0 + seed;
+  const bob = Math.sin(phi * 2) * 5;
+
+  const colBase = '#d97706';
+  const colLight = '#fef3c7';
+  const colDark = '#78350f';
+  const colCrest = '#ef4444';
+  const colBand = '#1e3a8a';
+
+  const bodyX = 0, bodyY = -140 + bob;
+  const bodyW = 180, bodyH = 95;
+
+  const farPhase = phi + Math.PI;
+  fillShape(p => {
+    p.moveTo(bodyX - 20, bodyY + 15);
+    p.lineTo(bodyX + Math.sin(farPhase) * 28 - 20, bodyY + 180);
+    p.lineTo(bodyX + Math.sin(farPhase) * 28 + 25, bodyY + 180);
+    p.lineTo(bodyX + 20, bodyY + 15);
+    p.closePath();
+  }, colDark);
+
+  fillShape(p => {
+    p.moveTo(bodyX - bodyW * 0.65, bodyY - 10);
+    p.bezierCurveTo(bodyX - bodyW - 80, bodyY - 15, bodyX - bodyW - 140, bodyY + 15, bodyX - bodyW - 220, bodyY + 30);
+    p.bezierCurveTo(bodyX - bodyW - 130, bodyY + 75, bodyX - bodyW * 0.6, bodyY + 55, bodyX - bodyW * 0.5, bodyY + 35);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.7, bodyY);
+    p.bezierCurveTo(-bodyW * 0.4, bodyY - bodyH * 0.85, bodyW * 0.3, bodyY - bodyH * 0.85, bodyW * 0.7, bodyY);
+    p.bezierCurveTo(bodyW * 0.75, bodyY + bodyH * 0.8, -bodyW * 0.4, bodyY + bodyH * 0.85, -bodyW * 0.7, bodyY);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(-bodyW * 0.55, bodyY + 25);
+    p.bezierCurveTo(0, bodyY + bodyH * 0.75, bodyW * 0.4, bodyY + bodyH * 0.7, bodyW * 0.65, bodyY + 20);
+    p.bezierCurveTo(bodyW * 0.35, bodyY + bodyH * 0.45, -bodyW * 0.3, bodyY + bodyH * 0.45, -bodyW * 0.55, bodyY + 25);
+    p.closePath();
+  }, colLight);
+
+  fillShape(p => {
+    p.moveTo(bodyX - 25, bodyY + 10);
+    p.lineTo(bodyX + Math.sin(phi) * 28 - 25, bodyY + 185);
+    p.lineTo(bodyX + Math.sin(phi) * 28 + 30, bodyY + 185);
+    p.lineTo(bodyX + 25, bodyY + 10);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(bodyW * 0.45, bodyY + 35);
+    p.lineTo(bodyW * 0.45 + Math.sin(phi + 1.5) * 18, bodyY + 135);
+    p.lineTo(bodyW * 0.45 + Math.sin(phi + 1.5) * 18 + 18, bodyY + 135);
+    p.lineTo(bodyW * 0.45 + 18, bodyY + 35);
+    p.closePath();
+  }, colBase);
+
+  const headX = bodyW * 0.75 + 45;
+  const headY = bodyY - 80 + Math.sin(t * 1.5) * 6;
+
+  fillShape(p => {
+    p.moveTo(bodyW * 0.55, bodyY - 15);
+    p.bezierCurveTo(bodyW * 0.7, bodyY - 65, headX - 35, headY + 35, headX, headY);
+    p.lineTo(headX + 55, headY + 18);
+    p.bezierCurveTo(headX + 15, headY + 55, bodyW * 0.75, bodyY + 15, bodyW * 0.6, bodyY + 30);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(headX + 45, headY + 12);
+    p.quadraticCurveTo(headX + 90, headY + 18, headX + 95, headY + 32);
+    p.quadraticCurveTo(headX + 65, headY + 42, headX + 40, headY + 30);
+    p.closePath();
+  }, '#94a3b8');
+
+  fillShape(p => {
+    p.moveTo(headX + 25, headY - 10);
+    p.bezierCurveTo(headX - 60, headY - 85, headX - 160, headY - 120, headX - 210, headY - 105);
+    p.bezierCurveTo(headX - 190, headY - 85, headX - 60, headY - 45, headX + 15, headY + 5);
+    p.closePath();
+  }, colCrest);
+
+  for (let b = 0; b < 4; b++) {
+    const bx = headX - 50 - b * 38;
+    const by = headY - 60 - b * 12;
+    fillShape(p => {
+      p.moveTo(bx, by);
+      p.lineTo(bx - 16, by - 6);
+      p.lineTo(bx - 12, by + 18);
+      p.lineTo(bx + 4, by + 22);
+      p.closePath();
+    }, colBand);
+  }
+
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(headX + 32, headY + 6, 6, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(headX + 34, headY + 4, 1.8, 0, TAU);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawSmallTheropod(ctx, x, y, scale, t, seed, flip = 1) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale * flip, scale);
+
+  const phi = t * 5.2 + seed;
+  const bob = Math.sin(phi * 2) * 5;
+
+  const colBase = '#c2410c';
+  const colLight = '#fed7aa';
+  const colDark = '#7c2d12';
+
+  const bodyX = 0, bodyY = -90 + bob;
+
+  fillShape(p => {
+    p.moveTo(bodyX - 35, bodyY - 8);
+    p.bezierCurveTo(bodyX - 120, bodyY - 20 + Math.sin(t * 3) * 15, bodyX - 220, bodyY + Math.sin(t * 2.5) * 20, bodyX - 310, bodyY - 10 + Math.sin(t * 3.5) * 25);
+    p.bezierCurveTo(bodyX - 210, bodyY + 30, bodyX - 110, bodyY + 35, bodyX - 25, bodyY + 18);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(bodyX - 45, bodyY);
+    p.bezierCurveTo(bodyX - 20, bodyY - 45, bodyX + 50, bodyY - 40, bodyX + 75, bodyY + 10);
+    p.bezierCurveTo(bodyX + 75, bodyY + 45, bodyX - 20, bodyY + 50, bodyX - 45, bodyY);
+    p.closePath();
+  }, colBase);
+
+  fillShape(p => {
+    p.moveTo(bodyX - 25, bodyY + 15);
+    p.bezierCurveTo(bodyX + 20, bodyY + 42, bodyX + 60, bodyY + 35, bodyX + 72, bodyY + 12);
+    p.bezierCurveTo(bodyX + 45, bodyY + 28, bodyX, bodyY + 28, bodyX - 25, bodyY + 15);
+    p.closePath();
+  }, colLight);
+
+  for (let s = 0; s < 2; s++) {
+    const lPhase = phi + (s === 0 ? 0 : Math.PI);
+    const stepX = Math.sin(lPhase) * 32;
+    const stepY = Math.max(0, -Math.cos(lPhase) * 22);
+    fillShape(p => {
+      p.moveTo(bodyX + (s === 0 ? 10 : 0), bodyY);
+      p.lineTo(bodyX + stepX - 14, bodyY + 125 - stepY);
+      p.lineTo(bodyX + stepX + 26, bodyY + 125 - stepY);
+      p.lineTo(bodyX + (s === 0 ? 30 : 20), bodyY);
+      p.closePath();
+    }, s === 0 ? colBase : colDark);
+  }
+
+  fillShape(p => {
+    p.moveTo(bodyX + 65, bodyY + 18);
+    p.lineTo(bodyX + 88, bodyY + 36);
+    p.lineTo(bodyX + 102, bodyY + 28);
+    p.lineTo(bodyX + 92, bodyY + 44);
+    p.lineTo(bodyX + 60, bodyY + 28);
+    p.closePath();
+  }, colBase);
+
+  const headX = bodyX + 110, headY = bodyY - 65 + Math.sin(t * 3) * 5;
+  fillShape(p => {
+    p.moveTo(bodyX + 60, bodyY - 15);
+    p.bezierCurveTo(bodyX + 75, bodyY - 55, headX - 35, headY + 20, headX, headY);
+    p.lineTo(headX + 45, headY + 12);
+    p.bezierCurveTo(headX + 15, headY + 35, bodyX + 75, bodyY + 15, bodyX + 65, bodyY + 25);
+    p.closePath();
+  }, colBase);
+
+  for (let f = 0; f < 8; f++) {
+    const fx = bodyX + 25 + f * 12;
+    const fy = bodyY - 32 - f * 4;
+    ctx.strokeStyle = '#f97316';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(fx, fy);
+    ctx.lineTo(fx - 10, fy - 14);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(headX + 26, headY + 4, 5, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(headX + 28, headY + 2, 1.8, 0, TAU);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawPterosaur(ctx, x, y, scale, t, seed) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  const flap = Math.sin(t * 3.5 + seed);
+  const wingY = flap * 75;
+
+  const colBody = '#475569';
+  const colMembrane = 'rgba(251, 146, 60, 0.85)';
+  const colCrest = '#f59e0b';
+
+  fillShape(p => {
+    p.ellipse(0, 0, 55, 22, 0.1, 0, TAU);
+  }, colBody);
+
+  fillShape(p => {
+    p.moveTo(35, -5);
+    p.lineTo(155, 2);
+    p.lineTo(35, 12);
+    p.lineTo(-45, -35);
+    p.lineTo(-20, -10);
+    p.closePath();
+  }, colCrest);
+
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(42, -2, 4, 0, TAU);
+  ctx.fill();
+
+  for (const side of [-1, 1]) {
+    const tipX = side * 340;
+    const tipY = -90 + side * wingY;
+    fillShape(p => {
+      p.moveTo(side * 20, 0);
+      p.bezierCurveTo(side * 120, -140 + wingY * 0.8, side * 240, -170 + wingY, tipX, tipY);
+      p.lineTo(tipX * 0.75, 45 + wingY * 0.3);
+      p.bezierCurveTo(side * 120, 25, side * 50, 20, side * 20, 15);
+      p.closePath();
+    }, colMembrane);
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+    ctx.lineWidth = 1.5;
+    for (let f = 0; f < 5; f++) {
+      ctx.beginPath();
+      ctx.moveTo(side * (50 + f * 50), -20);
+      ctx.lineTo(tipX * (0.4 + f * 0.12), tipY + 25 + f * 6);
+      ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+
+function drawMarineReptile(ctx, x, y, scale, t, seed, species = 'plesiosaur') {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  const isMosa = (species === 'mosasaur');
+  const swimPhi = t * 2.8 + seed;
+
+  const colBase = isMosa ? '#0e273c' : '#1d7874';
+  const colLight = isMosa ? '#d8e2dc' : '#72efdd';
+
+  if (!isMosa) {
+    fillShape(p => {
+      p.ellipse(0, 0, 140, 55, 0, 0, TAU);
+    }, colBase);
+
+    fillShape(p => {
+      p.ellipse(0, 20, 110, 28, 0, 0, TAU);
+    }, colLight);
+
+    for (let f = 0; f < 4; f++) {
+      const fx = f < 2 ? -75 : 75;
+      const fy = f % 2 === 0 ? -35 : 35;
+      const fAng = Math.sin(swimPhi + f * 1.5) * 0.35 + (f % 2 === 0 ? -0.4 : 0.4);
+      ctx.save();
+      ctx.translate(fx, fy);
+      ctx.rotate(fAng);
+      fillShape(p => {
+        p.moveTo(0, 0);
+        p.lineTo(65, 85);
+        p.lineTo(0, 130);
+        p.lineTo(-35, 75);
+        p.closePath();
+      }, colBase);
+      ctx.restore();
+    }
+
+    const neckBaseX = 110, neckBaseY = -10;
+    const headX = neckBaseX + 160 + Math.sin(t * 1.8) * 25;
+    const headY = neckBaseY - 140 + Math.cos(t * 2.2) * 35;
+
+    fillShape(p => {
+      p.moveTo(neckBaseX - 25, neckBaseY + 20);
+      p.bezierCurveTo(neckBaseX + 60, neckBaseY - 40, headX - 85, headY + 50, headX - 20, headY);
+      p.lineTo(headX + 35, headY - 10);
+      p.bezierCurveTo(headX - 10, headY + 70, neckBaseX + 85, neckBaseY - 20, neckBaseX + 15, neckBaseY + 25);
+      p.closePath();
+    }, colBase);
+
+    fillShape(p => {
+      p.ellipse(headX + 15, headY - 5, 28, 14, -0.2, 0, TAU);
+    }, colBase);
+
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(headX + 22, headY - 8, 4, 0, TAU);
+    ctx.fill();
+
+  } else {
+    const undul = Math.sin(swimPhi) * 25;
+    fillShape(p => {
+      p.moveTo(220, 0);
+      p.bezierCurveTo(150, -65, -80, -60, -220, undul);
+      p.bezierCurveTo(-80, 60, 150, 65, 220, 0);
+      p.closePath();
+    }, colBase);
+
+    fillShape(p => {
+      p.moveTo(-210, undul);
+      p.bezierCurveTo(-260, undul - 90, -310, undul - 120, -340, undul - 135);
+      p.lineTo(-280, undul);
+      p.bezierCurveTo(-310, undul + 90, -330, undul + 110, -350, undul + 125);
+      p.bezierCurveTo(-280, undul + 60, -240, undul + 25, -210, undul);
+      p.closePath();
+    }, colBase);
+
+    fillShape(p => {
+      p.moveTo(180, -35);
+      p.lineTo(295, 0);
+      p.lineTo(190, 42);
+      p.closePath();
+    }, colBase);
+
+    for (let z = 0; z < 7; z++) {
+      fillShape(p => {
+        const zx = 210 + z * 11;
+        p.moveTo(zx, -3);
+        p.lineTo(zx + 4, 8);
+        p.lineTo(zx + 8, -3);
+        p.closePath();
+      }, '#ffffff');
+    }
+
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(215, -15, 6, 0, TAU);
+    ctx.fill();
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(215, -15, 3, 0, TAU);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawBirdAndEvolution(ctx, x, y, scale, t, seed, isModern = false) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  const flap = Math.sin(t * 6.5 + seed);
+  const wingY = flap * 45;
+
+  const colPlumage = isModern ? '#0284c7' : '#059669';
+  const colBelly = isModern ? '#fef08a' : '#d1fae5';
+  const colWing = isModern ? '#0369a1' : '#047857';
+
+  fillShape(p => {
+    p.ellipse(0, 0, 48, 24, 0.1, 0, TAU);
+  }, colPlumage);
+
+  fillShape(p => {
+    p.ellipse(8, 8, 32, 14, 0.1, 0, TAU);
+  }, colBelly);
+
+  fillShape(p => {
+    p.arc(36, -8, 16, 0, TAU);
+  }, colPlumage);
+
+  fillShape(p => {
+    p.moveTo(46, -12);
+    p.lineTo(68, -4);
+    p.lineTo(46, 0);
+    p.closePath();
+  }, isModern ? '#f59e0b' : '#334155');
+
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(42, -10, 3.5, 0, TAU);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(43, -11, 1.2, 0, TAU);
+  ctx.fill();
+
+  for (const side of [-1, 1]) {
+    fillShape(p => {
+      p.moveTo(side * 8, -5);
+      p.bezierCurveTo(side * 60, -90 + wingY, side * 140, -110 + wingY, side * 175, -70 + wingY);
+      p.bezierCurveTo(side * 110, -30 + wingY * 0.5, side * 50, -5, side * 8, 10);
+      p.closePath();
+    }, colWing);
+
+    for (let f = 0; f < 5; f++) {
+      fillShape(p => {
+        const fx = side * (90 + f * 16);
+        const fy = -75 + wingY + f * 5;
+        p.moveTo(fx, fy);
+        p.lineTo(fx + side * 18, fy + 24);
+        p.lineTo(fx - side * 8, fy + 24);
+        p.closePath();
+      }, colPlumage);
+    }
+  }
+
+  if (!isModern) {
+    fillShape(p => {
+      p.moveTo(-40, 0);
+      p.bezierCurveTo(-110, 10, -170, 20, -220, 25);
+      p.bezierCurveTo(-170, 45, -110, 40, -40, 15);
+      p.closePath();
+    }, colWing);
+  } else {
+    fillShape(p => {
+      p.moveTo(-40, 0);
+      p.lineTo(-90, -18);
+      p.lineTo(-95, 24);
+      p.closePath();
+    }, colWing);
+  }
+  ctx.restore();
+}
+
+// -------------------------------------------------------------
+// INFOGRAPHIC & EDUCATIONAL SEQUENCES
+// -------------------------------------------------------------
+
+function drawGeologicalTimeline(shot, t) {
+  ctx.save();
+  drawText('GEOLOGICAL TIME & THE MESOZOIC ERA', W * 0.5, 290, 46, '#f8fafc', 800, 'center', 18);
+  drawText('Deep time spanning roughly 252 to 66 million years ago', W * 0.5, 345, 22, '#38bdf8', 600, 'center');
+
+  const tX = 220, tY = 560, tW = W - 440, tH = 36;
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.roundRect(tX - 4, tY - 4, tW + 8, tH + 8, 20);
+  ctx.fill();
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  const eras = [
+    { name: 'PALEOZOIC', sub: 'PERMIAN EXTINCTION (252 Ma)', frac: 0.12, col: '#7f1d1d' },
+    { name: 'TRIASSIC', sub: 'ORIGIN OF DINOSAURS (252–201 Ma)', frac: 0.28, col: '#b45309' },
+    { name: 'JURASSIC', sub: 'THE AGE OF GIANTS (201–145 Ma)', frac: 0.30, col: '#0f766e' },
+    { name: 'CRETACEOUS', sub: 'DIVERSIFICATION & K-PG (145–66 Ma)', frac: 0.22, col: '#0369a1' },
+    { name: 'CENOZOIC', sub: 'AGE OF BIRDS & MAMMALS (66–0 Ma)', frac: 0.08, col: '#047857' }
+  ];
+
+  let curX = tX;
+  eras.forEach((e, idx) => {
+    const sw = tW * e.frac;
+    ctx.fillStyle = e.col;
+    ctx.fillRect(curX, tY, sw, tH);
+    drawText(e.name, curX + sw * 0.5, tY + 18, 14, '#ffffff', 800, 'center');
+    drawText(e.sub, curX + sw * 0.5, tY + 75 + (idx % 2) * 35, 12, '#cbd5e1', 600, 'center');
+
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(curX, tY + tH * 0.5, 8, 0, TAU);
+    ctx.fill();
+
+    curX += sw;
+  });
+
+  const markerFrac = ((t * 0.05) % 1);
+  const mx = tX + tW * markerFrac;
+  ctx.fillStyle = drawRadial(mx, tY + tH * 0.5, 32, 'rgba(45, 212, 191, 0.9)', 'rgba(45, 212, 191, 0)');
+  ctx.beginPath();
+  ctx.arc(mx, tY + tH * 0.5, 32, 0, TAU);
+  ctx.fill();
+
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(mx, tY + tH * 0.5, 10, 0, TAU);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawPangaeaGlobe(shot, t) {
+  ctx.save();
+  const gx = W * 0.5, gy = 510, gr = 320;
+
+  ctx.fillStyle = drawRadial(gx, gy, gr * 1.35, 'rgba(56, 189, 248, 0.35)', 'rgba(56, 189, 248, 0)');
+  ctx.beginPath();
+  ctx.arc(gx, gy, gr * 1.35, 0, TAU);
+  ctx.fill();
+
+  const oceanGrad = ctx.createRadialGradient(gx - gr * 0.35, gy - gr * 0.4, gr * 0.1, gx, gy, gr);
+  oceanGrad.addColorStop(0, '#0284c7');
+  oceanGrad.addColorStop(0.65, '#0369a1');
+  oceanGrad.addColorStop(1, '#082f49');
+  ctx.fillStyle = oceanGrad;
+  ctx.beginPath();
+  ctx.arc(gx, gy, gr, 0, TAU);
+  ctx.fill();
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(gx, gy, gr, 0, TAU);
+  ctx.clip();
+
+  const rot = (t * 0.08 + shot.seed * 0.1) % TAU;
+  const cx = gx + Math.sin(rot) * 90;
+
+  fillShape(p => {
+    p.moveTo(cx - 160, gy - 120);
+    p.bezierCurveTo(cx - 260, gy - 40, cx - 210, gy + 110, cx - 110, gy + 190);
+    p.bezierCurveTo(cx + 40, gy + 240, cx + 180, gy + 140, cx + 160, gy + 10);
+    p.bezierCurveTo(cx + 140, gy - 110, cx + 50, gy - 210, cx - 80, gy - 190);
+    p.closePath();
+  }, '#15803d');
+
+  fillShape(p => {
+    p.moveTo(cx - 80, gy - 60);
+    p.bezierCurveTo(cx - 120, gy, cx - 60, gy + 80, cx + 20, gy + 90);
+    p.bezierCurveTo(cx + 90, gy + 60, cx + 80, gy - 40, cx - 20, gy - 70);
+    p.closePath();
+  }, '#ca8a04');
+
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 4;
+  ctx.setLineDash([8, 8]);
+  ctx.beginPath();
+  ctx.moveTo(cx - 150, gy + 20);
+  ctx.bezierCurveTo(cx - 40, gy + 35, cx + 60, gy + 20, cx + 160, gy + 45);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.restore();
+
+  const specGrad = ctx.createLinearGradient(gx - gr, gy - gr, gx + gr * 0.5, gy + gr);
+  specGrad.addColorStop(0, 'rgba(255, 255, 255, 0.45)');
+  specGrad.addColorStop(0.35, 'rgba(255, 255, 255, 0.05)');
+  specGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  ctx.fillStyle = specGrad;
+  ctx.beginPath();
+  ctx.arc(gx, gy, gr, 0, TAU);
+  ctx.fill();
+
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(gx, gy, gr, 0, TAU);
+  ctx.stroke();
+
+  drawText('SUPERCONTINENT PANGAEA', gx, gy + gr + 45, 30, '#f8fafc', 800, 'center');
+  drawText('Panthalassa Superocean & Tectonic Continental Rifting', gx, gy + gr + 80, 16, '#94a3b8', 600, 'center');
+
+  ctx.restore();
+}
+
+function drawFossilExcavation(shot, t) {
+  ctx.save();
+  const fx = W * 0.5, fy = 520;
+
+  fillShape(p => {
+    p.roundRect(fx - 460, fy - 260, 920, 520, 24);
+  }, '#78716c', '#44403c', 6);
+
+  for (let i = 0; i < 9; i++) {
+    const ly = fy - 210 + i * 52;
+    ctx.strokeStyle = 'rgba(68, 64, 60, 0.45)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(fx - 440, ly);
+    ctx.lineTo(fx + 440, ly);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = '#f5f5f4';
+  ctx.lineWidth = 14;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(fx + 240, fy - 80);
+  ctx.bezierCurveTo(fx + 120, fy - 60, fx - 40, fy - 40, fx - 340, fy + 40);
+  ctx.stroke();
+
+  for (let r = 0; r < 11; r++) {
+    const rx = fx + 160 - r * 28;
+    const ry = fy - 55 + r * 3;
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(rx, ry);
+    ctx.lineTo(rx - 15, ry + 75);
+    ctx.stroke();
+  }
+
+  fillShape(p => {
+    p.moveTo(fx + 240, fy - 80);
+    p.lineTo(fx + 350, fy - 110);
+    p.lineTo(fx + 380, fy - 65);
+    p.lineTo(fx + 260, fy - 45);
+    p.closePath();
+  }, '#e7e5e4');
+
+  ctx.strokeStyle = 'rgba(28, 25, 23, 0.7)';
+  ctx.lineWidth = 2;
+  for (let i = 0; i < 22; i++) {
+    const px = fx - 220 + i * 16;
+    const py = fy + 55 + (i % 3) * 6;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.lineTo(px + 12, py + 35);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = '#facc15';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(fx - 380, fy + 220);
+  ctx.lineTo(fx - 220, fy + 220);
+  ctx.stroke();
+  drawText('50 cm', fx - 300, fy + 200, 16, '#facc15', 700, 'center');
+
+  drawText('FOSSIL EVIDENCE: OSTEOLOGY & FEATHER IMPRESSIONS', fx, fy - 215, 26, '#f8fafc', 800, 'center');
+  ctx.restore();
+}
+
+function drawEggNest(shot, t) {
+  ctx.save();
+  const nx = W * 0.5, ny = 760;
+
+  fillShape(p => {
+    p.ellipse(nx, ny, 380, 110, 0, 0, TAU);
+  }, '#573a27', '#3b2518', 6);
+
+  for (let i = 0; i < 32; i++) {
+    const a = (i / 32) * TAU;
+    const r = 320 + hash(i * 17) * 45;
+    fillShape(p => {
+      p.moveTo(nx + Math.cos(a) * (r - 40), ny + Math.sin(a) * (r * 0.28 - 10));
+      p.lineTo(nx + Math.cos(a + 0.12) * r, ny + Math.sin(a + 0.12) * (r * 0.28));
+    }, null, '#926a48', 4);
+  }
+
+  for (let e = 0; e < 12; e++) {
+    const ea = (e / 12) * TAU;
+    const er = 170 + (e % 2) * 45;
+    const ex = nx + Math.cos(ea) * er;
+    const ey = ny + Math.sin(ea) * er * 0.28;
+    ctx.save();
+    ctx.translate(ex, ey);
+    ctx.rotate(ea + 0.3);
+    fillShape(p => {
+      p.ellipse(0, 0, 36, 18, 0, 0, TAU);
+    }, '#fef3c7', '#d97706', 2.5);
+
+    fillShape(p => {
+      p.ellipse(-6, -4, 20, 8, 0, 0, TAU);
+    }, '#ffffff');
+    ctx.restore();
+  }
+
+  drawText('FOSSIL NESTING COLONY & PARENTAL CARE', nx, 360, 32, '#f8fafc', 800, 'center');
+  drawText('Paired clutches of eggs demonstrate avian-like reproductive biology', nx, 410, 18, '#38bdf8', 600, 'center');
+  ctx.restore();
+}
+
+function drawEvolutionaryTree(shot, t) {
+  ctx.save();
+  const ox = 320, oy = 820;
+
+  drawText('THE THEROPOD ANCESTRY OF BIRDS', W * 0.5, 220, 36, '#f8fafc', 800, 'center');
+  drawText('A Continuous Lineage from Triassic Predators to Modern Avian Dinosaurs', W * 0.5, 270, 18, '#38bdf8', 600, 'center');
+
+  ctx.strokeStyle = '#2dd4bf';
+  ctx.lineWidth = 8;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(ox, oy);
+  ctx.lineTo(ox + 350, oy - 140);
+  ctx.lineTo(ox + 750, oy - 280);
+  ctx.lineTo(ox + 1150, oy - 420);
+  ctx.stroke();
+
+  const clades = [
+    { name: 'ARCHOSAURIA', time: '250 Ma', x: ox, y: oy },
+    { name: 'DINOSAURIA', time: '230 Ma', x: ox + 350, y: oy - 140 },
+    { name: 'THEROPODA', time: '200 Ma', x: ox + 600, y: oy - 230 },
+    { name: 'MANIRAPTORA', time: '150 Ma', x: ox + 880, y: oy - 330 },
+    { name: 'AVIALAE (BIRDS)', time: 'TODAY', x: ox + 1150, y: oy - 420 }
+  ];
+
+  clades.forEach((c, idx) => {
+    ctx.fillStyle = '#facc15';
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 14, 0, TAU);
+    ctx.fill();
+
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 7, 0, TAU);
+    ctx.fill();
+
+    drawText(c.name, c.x, c.y + 36, 16, '#f8fafc', 800, 'center');
+    drawText(c.time, c.x, c.y + 60, 13, '#38bdf8', 600, 'center');
+  });
+
+  ctx.restore();
+}
+
+function drawAsteroidAndImpact(shot, t, p) {
+  ctx.save();
+  const kind = shot.type;
+
+  if (kind === 'space') {
+    ctx.fillStyle = '#030712';
+    ctx.fillRect(0, 0, W, H);
+
+    for (let i = 0; i < 180; i++) {
+      const sx = hash(i * 17) * W;
+      const sy = hash(i * 31) * H;
+      const sa = 0.3 + hash(i * 7) * 0.7;
+      ctx.fillStyle = `rgba(255, 255, 255, ${sa})`;
+      ctx.beginPath();
+      ctx.arc(sx, sy, 1.2 + (i % 4 === 0 ? 1.5 : 0), 0, TAU);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = drawRadial(W * 0.2, H * 1.3, 850, '#0284c7', '#030712');
+    ctx.beginPath();
+    ctx.arc(W * 0.2, H * 1.3, 850, 0, TAU);
+    ctx.fill();
+
+    if (shot.animal === 'meteor') {
+      const ax = lerp(W + 120, W * 0.42, p);
+      const ay = lerp(-80, H * 0.65, p);
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      const gTrail = ctx.createLinearGradient(ax + 350, ay - 240, ax, ay);
+      gTrail.addColorStop(0, 'rgba(239, 68, 68, 0)');
+      gTrail.addColorStop(0.65, 'rgba(249, 115, 22, 0.45)');
+      gTrail.addColorStop(1, 'rgba(254, 240, 138, 0.9)');
+      ctx.fillStyle = gTrail;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(ax + 380, ay - 270);
+      ctx.lineTo(ax + 420, ay - 210);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      fillShape(pt => {
+        pt.arc(ax, ay, 52, 0, TAU);
+      }, '#451a03');
+
+      ctx.fillStyle = drawRadial(ax, ay, 95, 'rgba(254, 240, 138, 0.95)', 'rgba(239, 68, 68, 0)');
+      ctx.beginPath();
+      ctx.arc(ax, ay, 95, 0, TAU);
+      ctx.fill();
+    }
+  } else if (kind === 'impact') {
+    const ix = W * 0.58, iy = H * 0.52;
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const shockR = lerp(40, 1100, p);
+    ctx.strokeStyle = `rgba(255, 255, 255, ${1 - p * 0.8})`;
+    ctx.lineWidth = 28 * (1 - p * 0.5);
+    ctx.beginPath();
+    ctx.arc(ix, iy, shockR, 0, TAU);
+    ctx.stroke();
+
+    const fireR = lerp(120, 680, smoothstep(p));
+    ctx.fillStyle = drawRadial(ix, iy, fireR, '#ffffff', 'rgba(234, 88, 12, 0)');
+    ctx.beginPath();
+    ctx.arc(ix, iy, fireR, 0, TAU);
+    ctx.fill();
+    ctx.restore();
+
+    for (let k = 0; k < 120; k++) {
+      const ang = hash(k * 13) * TAU;
+      const dist = p * hash(k * 29) * 1200;
+      const ex = ix + Math.cos(ang) * dist;
+      const ey = iy + Math.sin(ang) * dist * 0.65;
+      ctx.fillStyle = k % 2 === 0 ? '#facc15' : '#ef4444';
+      ctx.beginPath();
+      ctx.arc(ex, ey, 3 + (k % 4), 0, TAU);
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+// -------------------------------------------------------------
+// SCENE DIRECTOR & DETERMINISTIC COMPOSITOR (render(t))
+// -------------------------------------------------------------
+let clock = 0, playing = false, lastFrame = 0, exporting = false;
+let showSubs = true, voiceEnabled = false, lastSaid = -1;
+let recorder = null, recordingStream = null, recordUrl = null;
+
+function render(at) {
+  const time = clamp(at, 0, 600);
+  const shotIdx = Math.max(0, SHOTS.findIndex(s => time >= s.start && time < s.end));
+  const shot = SHOTS[shotIdx >= 0 ? shotIdx : SHOTS.length - 1];
+  const p = (time - shot.start) / (shot.end - shot.start);
+
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  // Smooth cinematic camera tracking, push-in, and parallax
+  const pushIn = 1.0 + Math.sin(p * Math.PI) * 0.035;
+  const panX = Math.sin(p * Math.PI * 0.5) * 45;
+  ctx.translate(W * 0.5, H * 0.5);
+  ctx.scale(pushIn, pushIn);
+  ctx.translate(-W * 0.5 + panX, -H * 0.5);
+
+  // 1. SKY & CELESTIAL
+  drawSkyAtmosphere(shot, time);
+
+  // 2. BACKGROUND MOUNTAINS & TOPOGRAPHY
+  if (!['space', 'underwater', 'timeline', 'map'].includes(shot.type)) {
+    drawMountainPlanes(shot, time);
+  }
+
+  // 3. SPECIAL SEQUENCES
+  if (shot.type === 'timeline') {
+    drawGeologicalTimeline(shot, time);
+  } else if (shot.type === 'globe' || shot.type === 'map') {
+    drawPangaeaGlobe(shot, time);
+  } else if (shot.type === 'fossil') {
+    drawFossilExcavation(shot, time);
+  } else if (shot.type === 'nest') {
+    drawEggNest(shot, time);
+  } else if (shot.type === 'tree') {
+    drawEvolutionaryTree(shot, time);
+  } else if (shot.type === 'space' || shot.type === 'impact') {
+    drawAsteroidAndImpact(shot, time, smoothstep(p));
+  } else if (shot.type === 'volcano') {
+    drawVolcanoTraps(shot, time);
+  }
+
+  // 4. WATER BODY
+  drawPrehistoricWater(shot, time);
+
+  // 5. MIDGROUND VEGETATION
+  if (['forest', 'river', 'dry', 'final', 'nest', 'feather'].includes(shot.type)) {
+    for (let i = 0; i < 7; i++) {
+      const tx = ((i * 310 + shot.seed * 43) % (W + 300)) - 150;
+      drawAraucariaConifer(tx, 760, 0.75 + hash(i * 19) * 0.45, time, shot.seed + i);
+    }
+    for (let i = 0; i < 6; i++) {
+      const cx = ((i * 360 + 140 + shot.seed * 67) % (W + 200)) - 100;
+      drawCycad(cx, 790, 0.85 + hash(i * 23) * 0.35, time, shot.seed + i);
+    }
+  }
+
+  // 6. ANIMATED DINOSAUR ACTORS
+  const animal = shot.animal;
+  if (animal) {
+    if (animal === 'sauropod' || animal === 'diplodocus' || animal === 'brachio') {
+      const dinoX = W * 0.48 + Math.sin(time * 0.35) * 45;
+      const dinoY = 820;
+      drawSauropod(ctx, dinoX, dinoY, animal === 'brachio' ? 1.55 : 1.45, time, shot.seed, 1, animal);
+    } else if (animal === 'trex' || animal === 'allosaurus' || animal === 'theropod') {
+      const dinoX = W * 0.52 + Math.sin(time * 0.4) * 55;
+      const dinoY = 815;
+      drawTheropod(ctx, dinoX, dinoY, 1.45, time, shot.seed, 1, animal);
+    } else if (animal === 'triceratops') {
+      const dinoX = W * 0.5 + Math.sin(time * 0.38) * 40;
+      const dinoY = 825;
+      drawTriceratops(ctx, dinoX, dinoY, 1.5, time, shot.seed, 1);
+    } else if (animal === 'hadrosaur') {
+      const dinoX = W * 0.5 + Math.sin(time * 0.4) * 45;
+      const dinoY = 820;
+      drawHadrosaur(ctx, dinoX, dinoY, 1.5, time, shot.seed, 1);
+    } else if (animal === 'small') {
+      const dinoX = W * 0.45 + Math.sin(time * 0.8) * 90;
+      const dinoY = 835;
+      drawSmallTheropod(ctx, dinoX, dinoY, 1.7, time, shot.seed, 1);
+    } else if (animal === 'pterosaur') {
+      const pX = W * 0.5 + Math.sin(time * 0.7) * 260;
+      const pY = 430 + Math.sin(time * 1.6) * 55;
+      drawPterosaur(ctx, pX, pY, 1.6, time, shot.seed);
+    } else if (animal === 'plesiosaur' || animal === 'mosasaur') {
+      const mX = W * 0.5 + Math.sin(time * 0.4) * 85;
+      const mY = 760 + Math.sin(time * 0.8) * 35;
+      drawMarineReptile(ctx, mX, mY, 1.6, time, shot.seed, animal);
+    } else if (animal === 'bird') {
+      const bX = W * 0.52 + Math.sin(time * 1.1) * 220;
+      const bY = 480 + Math.sin(time * 2.2) * 50;
+      drawBirdAndEvolution(ctx, bX, bY, 1.7, time, shot.seed, shot.ci === 10);
+    } else if (animal === 'herd') {
+      drawSauropod(ctx, W * 0.28, 810, 1.15, time, shot.seed, 1, 'sauropod');
+      drawHadrosaur(ctx, W * 0.65, 835, 1.25, time, shot.seed + 3, -1);
+      drawTriceratops(ctx, W * 0.86, 850, 1.1, time, shot.seed + 7, -1);
+    }
+  }
+
+  // 7. FOREGROUND FRAMING FOLIAGE
+  if (['forest', 'river', 'final', 'nest'].includes(shot.type)) {
+    drawForegroundFern(120, H + 60, 1.35, time, shot.seed);
+    drawForegroundFern(W - 80, H + 80, 1.45, time, shot.seed + 9);
+
+    if (shot.ci === 6) {
+      for (let f = 0; f < 9; f++) {
+        drawCretaceousFlowers(280 + f * 170, 940 + (f % 3) * 28, 0.75, shot.seed + f);
+      }
+    }
+  }
+
+  // 8. EXTINCTION ASH PARTICLES
+  if (shot.type === 'ash') {
+    ctx.save();
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.7)';
+    ctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < 180; i++) {
+      const ax = (hash(i * 19) * W + time * (15 + (i % 5) * 8)) % W;
+      const ay = (hash(i * 37) * H + time * (45 + (i % 4) * 12)) % H;
+      ctx.fillStyle = i % 3 === 0 ? 'rgba(254, 202, 202, 0.6)' : 'rgba(203, 213, 225, 0.45)';
+      ctx.beginPath();
+      ctx.arc(ax, ay, 1.5 + (i % 3), 0, TAU);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  ctx.restore(); // restore camera transform
+
+  // 9. CINEMATIC COLOR VIGNETTE
+  const vign = ctx.createRadialGradient(W * 0.5, H * 0.5, 380, W * 0.5, H * 0.5, 1250);
+  vign.addColorStop(0, 'rgba(0, 0, 0, 0)');
+  vign.addColorStop(1, 'rgba(2, 6, 23, 0.75)');
+  ctx.fillStyle = vign;
+  ctx.fillRect(0, 0, W, H);
+
+  // 10. LOWER-THIRD CHAPTER BADGE & SHOT TITLE
+  const enterAlpha = smoothstep((time - shot.start) / 1.2);
+  const exitAlpha = smoothstep((shot.end - time) / 1.0);
+  const cardAlpha = Math.min(enterAlpha, exitAlpha);
+
+  ctx.save();
+  ctx.globalAlpha = cardAlpha;
+  const cDef = CHAPTERS[shot.ci];
+
+  const bX = 96, bY = 72;
+  ctx.fillStyle = 'rgba(13, 21, 39, 0.85)';
+  ctx.beginPath();
+  ctx.roundRect(bX, bY, 440, 78, 12);
+  ctx.fill();
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  drawText(`CHAPTER ${String(shot.ci + 1).padStart(2, '0')} · ${cDef.name.toUpperCase()}`, bX + 20, bY + 26, 12, '#38bdf8', 800);
+  drawText(shot.title, bX + 20, bY + 54, 20, '#ffffff', 800);
+  ctx.restore();
+
+  // 11. TIMECODE & PROGRESS LINE
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+  ctx.fillRect(96, H - 36, W - 192, 3);
+  ctx.fillStyle = '#2dd4bf';
+  ctx.fillRect(96, H - 36, (W - 192) * (time / 600), 3);
+
+  // 12. BURNED-IN TIME-ALIGNED SUBTITLES
+  if (showSubs) {
+    const sub = SUBS.find(s => time >= s.start && time < s.end);
+    if (sub) {
+      const subFade = Math.min(smoothstep((time - sub.start) / 0.18), smoothstep((sub.end - time) / 0.18));
+      ctx.save();
+      ctx.globalAlpha = subFade;
+
+      const words = sub.text.split(' ');
+      const lines = [];
+      let curLine = '';
+      for (const w of words) {
+        if ((curLine + ' ' + w).trim().length > 44 && curLine) {
+          lines.push(curLine.trim());
+          curLine = w;
+        } else {
+          curLine = (curLine + ' ' + w).trim();
+        }
+      }
+      if (curLine) lines.push(curLine);
+      if (lines.length > 2) {
+        const mid = Math.ceil(words.length / 2);
+        lines.length = 0;
+        lines.push(words.slice(0, mid).join(' '));
+        lines.push(words.slice(mid).join(' '));
+      }
+
+      const subY = 935;
+      const lineH = 44;
+      const boxH = lines.length * lineH + 24;
+      const boxW = 1240;
+      const boxX = (W - boxW) * 0.5;
+
+      ctx.fillStyle = 'rgba(6, 11, 23, 0.88)';
+      ctx.beginPath();
+      ctx.roundRect(boxX, subY - 14, boxW, boxH, 14);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.28)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      lines.forEach((ln, lIdx) => {
+        drawText(ln, W * 0.5, subY + 14 + lIdx * lineH, 30, '#f8fafc', 700, 'center', 8);
+      });
+      ctx.restore();
+    }
+  }
+
+  updateAudio(shot.ci, time);
+  return shot;
+}
+
+// -------------------------------------------------------------
+// PLAYBACK CONTROLS & BROWSER INTERACTION
+// -------------------------------------------------------------
+function seek(t) {
+  if (exporting) return;
+  clock = clamp(Number(t), 0, 600);
+  lastSaid = -1;
+  window.speechSynthesis?.cancel();
+  render(clock);
+  updateControls(SHOTS.find(s => clock >= s.start && clock < s.end) || SHOTS[SHOTS.length - 1]);
+  if (playing) speakIfNeeded(true);
+}
+
+function updateControls(shot) {
+  $('clock').textContent = `${fmt(clock)} / 10:00`;
+  $('seek').value = clock;
+  $('play').textContent = playing ? '❚❚ Pause' : '▶ Play';
+  [...$('chapters').children].forEach((b, i) => b.classList.toggle('active', i === shot.ci));
+}
+
+function currentSubIndex(t) {
+  return SUBS.findIndex(s => t >= s.start && t < s.end);
+}
+
+function speakIfNeeded(force = false) {
+  if (!voiceEnabled || exporting || !('speechSynthesis' in window)) return;
+  const k = currentSubIndex(clock);
+  if (k < 0 || (!force && k === lastSaid)) return;
+  lastSaid = k;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(SUBS[k].text);
+  u.lang = 'en-US';
+  u.rate = 1.05;
+  u.volume = Number($('volume').value);
+  window.speechSynthesis.speak(u);
+}
+
+function frame(ts) {
+  if (!lastFrame) lastFrame = ts;
+  const dt = Math.min((ts - lastFrame) / 1000, 0.1);
+  lastFrame = ts;
+
+  if (playing && !exporting) {
+    clock = Math.min(600, clock + dt);
+    if (clock >= 600) {
+      playing = false;
+      window.speechSynthesis?.cancel();
+    } else {
+      speakIfNeeded();
+    }
+  }
+
+  const curShot = render(clock);
+  if (!exporting) updateControls(curShot);
+  requestAnimationFrame(frame);
+}
+
+$('play').onclick = () => {
+  if (exporting) return;
+  initAudio();
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
+  }
+  playing = !playing;
+  if (playing && clock >= 600) clock = 0;
+  if (!playing) window.speechSynthesis?.cancel();
+  else speakIfNeeded(true);
+};
+
+$('restart').onclick = () => seek(0);
+$('seek').oninput = e => seek(e.target.value);
+$('subs').onchange = e => showSubs = e.target.checked;
+
+$('audioToggle').onchange = e => {
+  if (masterGain && audioCtx) {
+    masterGain.gain.setTargetAtTime(Number($('volume').value) * (e.target.checked ? 0.35 : 0), audioCtx.currentTime, 0.1);
+  }
+};
+
+$('volume').oninput = e => {
+  if (masterGain && audioCtx && $('audioToggle').checked) {
+    masterGain.gain.setTargetAtTime(Number(e.target.value) * 0.35, audioCtx.currentTime, 0.05);
+  }
+};
+
+$('voiceToggle').onchange = e => {
+  voiceEnabled = e.target.checked;
+  lastSaid = -1;
+  if (!voiceEnabled) window.speechSynthesis?.cancel();
+  else if (playing) speakIfNeeded(true);
+};
+
+CHAPTERS.forEach((c, idx) => {
+  const b = document.createElement('button');
+  b.className = 'chapter-btn';
+  b.textContent = `${String(idx + 1).padStart(2, '0')} ${c.name}`;
+  b.onclick = () => seek(c.start);
+  $('chapters').appendChild(b);
+});
+
+// -------------------------------------------------------------
+// VIDEO EXPORT PIPELINE (MEDIARECORDER 1080P WEBM)
+// -------------------------------------------------------------
+const setStatus = msg => $('status').textContent = msg;
+
+async function exportVideo() {
+  if (exporting) return;
+  if (!window.MediaRecorder || !canvas.captureStream) {
+    setStatus('Export error: MediaRecorder and canvas.captureStream required.');
+    return;
+  }
+  initAudio();
+  if (audioCtx && audioCtx.state === 'suspended') {
+    try { await Promise.race([audioCtx.resume(), new Promise(r => setTimeout(r, 120))]); } catch (e) {}
+  }
+
+  const mime = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find(x => MediaRecorder.isTypeSupported(x));
+  if (!mime) {
+    setStatus('Export error: No compatible WebM recorder codec supported.');
+    return;
+  }
+
+  if (recordUrl) {
+    URL.revokeObjectURL(recordUrl);
+    recordUrl = null;
+  }
+
+  const previous = { clock, playing, showSubs, voiceEnabled };
+  exporting = true;
+  playing = false;
+  showSubs = true;
+  voiceEnabled = false;
+  window.speechSynthesis?.cancel();
+
+  document.querySelectorAll('button, input').forEach(el => el.disabled = true);
+  $('export').disabled = false;
+  $('export').textContent = '■ Stop Export';
+  $('export').classList.add('btn-danger');
+
+  let chunks = [], finished = false, stopRequested = false;
+  clock = 0;
+  render(0);
+
+  recordingStream = canvas.captureStream(30);
+
+  const hasAudio = audioDest && audioCtx && audioCtx.state === 'running' && $('audioToggle').checked;
+  if (hasAudio) {
+    const audioTracks = audioDest.stream.getAudioTracks();
+    if (audioTracks.length > 0) {
+      recordingStream.addTrack(audioTracks[0]);
+    }
+  }
+
+  try {
+    recorder = new MediaRecorder(recordingStream, {
+      mimeType: mime,
+      videoBitsPerSecond: 12000000
+    });
+  } catch (err) {
+    cleanupExport();
+    setStatus('Recorder initialization failed: ' + err.message);
+    return;
+  }
+
+  function cleanupExport() {
+    exporting = false;
+    recordingStream?.getTracks().forEach(t => t.stop());
+    recordingStream = null;
+    recorder = null;
+    clock = previous.clock;
+    playing = previous.playing;
+    showSubs = previous.showSubs;
+    voiceEnabled = previous.voiceEnabled;
+
+    document.querySelectorAll('button, input').forEach(el => el.disabled = false);
+    $('export').textContent = '⬇ Render Video (WebM)';
+    $('export').classList.remove('btn-danger');
+    $('export').onclick = exportVideo;
+    $('progress').style.width = '0%';
+    render(clock);
+    updateControls(SHOTS.find(s => clock >= s.start && clock < s.end) || SHOTS[SHOTS.length - 1]);
+  }
+
+  recorder.ondataavailable = e => {
+    if (e.data && e.data.size > 0) chunks.push(e.data);
+  };
+
+  recorder.onerror = e => {
+    setStatus('Recording error: ' + (e.error?.message || 'unknown'));
+    stopRequested = true;
+  };
+
+  recorder.onstop = () => {
+    if (finished) return;
+    finished = true;
+    if (chunks.length > 0 && chunks.some(c => c.size > 0)) {
+      const blob = new Blob(chunks, { type: mime.split(';')[0] });
+      recordUrl = URL.createObjectURL(blob);
+      const dlLink = document.createElement('a');
+      dlLink.href = recordUrl;
+      dlLink.download = stopRequested ? 'dinosaur_odyssey_partial.webm' : 'dinosaur_odyssey_600s.webm';
+      document.body.appendChild(dlLink);
+      dlLink.click();
+      dlLink.remove();
+      setStatus(`Download complete: ${(blob.size / 1048576).toFixed(1)} MiB WebM (1080p, burned-in subtitles${hasAudio ? ', ambient synth' : ''}).`);
+    } else {
+      setStatus('Recording produced no output data.');
+    }
+    chunks = [];
+    cleanupExport();
+  };
+
+  const stopExport = () => {
+    if (exporting && recorder && recorder.state === 'recording') {
+      stopRequested = true;
+      try { recorder.requestData(); } catch (e) {}
+      setTimeout(() => {
+        if (recorder && recorder.state === 'recording') recorder.stop();
+      }, 50);
+    }
+  };
+  $('export').onclick = stopExport;
+
+  try {
+    recorder.start(1000);
+  } catch (err) {
+    setStatus('Recorder start failed: ' + err.message);
+    cleanupExport();
+    return;
+  }
+
+  const started = performance.now();
+  let lastProgressSec = -1;
+
+  function exportLoop(now) {
+    if (!exporting || finished || stopRequested) return;
+    const elapsed = Math.min(600, (now - started) / 1000);
+    clock = elapsed;
+    render(clock);
+
+    const wholeSec = Math.floor(elapsed);
+    if (wholeSec !== lastProgressSec) {
+      lastProgressSec = wholeSec;
+      $('clock').textContent = `${fmt(clock)} / 10:00`;
+      $('seek').value = clock;
+      $('progress').style.width = (clock / 6) + '%';
+      setStatus(`Recording: ${fmt(clock)} / 10:00 (${Math.floor(clock / 6)}%) · 1080p 30fps with subtitles & synth audio`);
+    }
+
+    if (elapsed >= 600) {
+      clock = 600;
+      render(600);
+      try { recorder.requestData(); } catch (e) {}
+      setTimeout(() => {
+        if (recorder?.state === 'recording') recorder.stop();
+      }, 200);
+      return;
+    }
+    requestAnimationFrame(exportLoop);
+  }
+  requestAnimationFrame(exportLoop);
+}
+
+$('export').onclick = exportVideo;
+
+// Diagnostics
+window.DINOSAUR_DIAGNOSTICS = {
+  chapters: CHAPTERS,
+  shots: SHOTS,
+  subtitles: SUBS,
+  renderAt: t => {
+    render(t);
+    return { time: t, shot: SHOTS.find(s => t >= s.start && t < s.end) };
+  }
+};
+
+render(0);
+requestAnimationFrame(frame);
+setStatus(`Ready · ${SHOTS.length} directed shots · 10:00 runtime · 1080p vector cinema. Click Play or seek timeline.`);
+</script>
+</body>
+</html>
